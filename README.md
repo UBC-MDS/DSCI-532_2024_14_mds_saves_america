@@ -12,7 +12,7 @@ The Future of Democracy and American Elections Dashboard project aims to provide
 
 ## Contributors
 Sampson Yu, 
-Sophia Zhao 
+Sophia Zhao, 
 Salva Umar, 
 Arturo Rey
 
