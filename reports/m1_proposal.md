@@ -32,6 +32,16 @@ The cleaned dataset now comprises 800 rows and 22 columns. It is structured to f
 
 This dataset plays a vital role in enhancing the public's insight into the political and social views of Americans. Our goal is to investigate the connections between demographic attributes and societal and political opinions among the American populace. This initiative aims to grasp the prevailing sentiment of the nation as of August 2018.
 
+## **3. Research Question**
+
+Our dashboard aims to help undecided American voters for the upcoming elections on who will better represent them in the upcoming elections for Commander-in-cheif.
+
+1. Lorenzo, a 45 year old store owner in Florida, is involved in his local community and values staying informed about political matters. Lorenzo is interested in knowing more about the upcoming 2024 USA elections, and seeks to use the electoral guide dashboard to gain valuable insights into the ideologies of the presidential candidate, especially the Republican Party candidate. As a business owner, Lorenzo understands the importance of political decisions on his business and the community. His main goal is to learn as much as possible from the Republican Party candidate, as this is his first choice, as he has historically been a Republican. 
+
+2. Stefano, a 49 year old employee at an oil and gas company in California, nearing retirement, is highly interested on the candidates' views on oil and gas. Stefano values the insights found on the dashboard because, as he is nearing retirement, he wants to know how these elections will affect his 401k and his current job as an employee in a controversial field. Stefano seeks to learn more about the Republican Party candidate, as he has been a Democrat for a better part of his adult life, but has felt the current government has not backed him up in retirement and oil and gas matters.
+
+3. Donald, a 77 year old businessman residing in New York, brings decades of experience in the business field. He has been an entrepreneur for several companies, so he is very keen on learning how these future elections will affect his businesses. Donald has been a Republican most of his life, and is very interested on the Republican Party candidate because he feels like his views align very well with this candidate. Donald feels like this dashboard will help him clear up his doubts about the party, seeing as the country has been divided on political parties, and misinformation seems rampant on social media in the past couple of years.
+
 ## **4. App Sketch and Dashboard Description**
 The main page of the app presents a summary of the survey data, providing general statistics and comparisons related to American elections. The main page is divided into two sections: general correlations regarding political affiliations and opinions on American survival, and the elections section, which covers public opinion on Donald Trump.
 
