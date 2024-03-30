@@ -133,4 +133,5 @@ dependencies:
       - websocket-client==1.7.0
       - werkzeug==3.0.1
       - zipp==3.18.1
+      - dash_vega_components==0.8.2
 
