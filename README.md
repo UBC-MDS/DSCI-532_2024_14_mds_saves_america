@@ -25,6 +25,32 @@ We have developed a dashboard that acts as a comprehensive guide for these elect
 
 By equipping voters with this tool, we aim to bridge the gap between information and understanding, empowering each American citizen to make a choice that truly reflects their hopes and ideals for the nation's future.
 
+## Interactive Features of Our Dashboard
+Our dashboard has been meticulously crafted to provide an engaging experience with several interactive elements that allow for personalized exploration. Here's what you can expect:
+
+### Demographic Filters
+Tailor your view by adjusting the demographic filters. You have control over:
+
+- **Age Range:** A flexible slider to narrow down the data by specific age groups.
+- **Racial Group:** A dropdown menu to select and view data for particular racial demographics.
+- **Education Level:** Choose from various educational backgrounds to see how education influences political opinions.
+- **Political Ideology:** A dropdown that sorts data by political leanings, from conservative to liberal and everything in between.
+
+### Data Visualizations
+
+- **Bar Charts:** Get a granular look at political affiliations across different demographics with our stacked bar charts. These visualizations dynamically adjust to your filter settings, giving you a detailed breakdown of the political landscape.
+- **Donut Chart:** Discover the likelihood of Donald Trump's re-election at a glance. 
+- **Tabulated Data:** View a comparative table that correlates Americans' approval of Donald Trump with their opinions on election fairness. This section provides a straightforward, numerical approach to understanding public perception.
+
+### Explore Our Dashboard in Action
+Get a glimpse of the dashboard's capabilities and user experience with our demo GIF. See firsthand how you can interact with the various elements and filters to obtain the insights you need.
+
+------add link here------
+
+For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided below. Dive into the data, play with the filters, and see the visualizations respond in real-time.
+
+**The Future of Democracy and American Elections Dashboard(url)**
+
 ## Dashboard Design (Draft):
 <img src="img/Dashboard.jpg" width="700">
 
