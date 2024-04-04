@@ -28,6 +28,7 @@ min_age = df['age'].min()
 max_age = df['age'].max()
 
 df_pct = df.groupby(['race', 'political_party']).size().unstack(fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
+df_pct_education = df.groupby(['higher_education', 'political_party']).size().unstack(fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
 
 
 race_pol_party_chart1 = alt.Chart(df_pct).mark_bar().encode(
@@ -39,13 +40,19 @@ race_pol_party_chart1 = alt.Chart(df_pct).mark_bar().encode(
 )
 
 
-def create_stacked_chart(df):
+def create_stacked_chart_race(df):
+    party_colors = {'Republican': colors['red'], 
+                    'Democrat': colors['dark_blue'], 
+                    'DK/REF': colors['white'], 
+                    'Independent': colors['light_blue']}
+
     fig = px.bar(df, x='race', y='percentage', color='political_party',
-             title='100% Stacked Bar Chart of Political Party by Race',
+             title='Stacked Bar Chart of Political Party by Race',
              labels={'percentage': 'Percentage', 'race': 'Race'},
              category_orders={'race': sorted(df['race'].unique())},
              hover_data={'percentage': ':.2%'},
-             barmode='relative')
+             barmode='relative',
+             color_discrete_map=party_colors)
 
     fig.update_yaxes(title='Percentage', tickformat='%')
     fig.update_layout(
@@ -58,6 +65,31 @@ def create_stacked_chart(df):
 
     return fig
 
+
+def create_stacked_chart_education(df):
+    party_colors = {'Republican': colors['red'], 
+                    'Democrat': colors['dark_blue'], 
+                    'DK/REF': colors['white'], 
+                    'Independent': colors['light_blue']}
+
+    fig = px.bar(df, x='higher_education', y='percentage', color='political_party',
+             title='Stacked Bar Chart of Political Party by Highest Education',
+             labels={'percentage': 'Percentage', 'higher_education': 'Higher Education'},
+             category_orders={'higher_education': sorted(df['higher_education'].unique())},
+             hover_data={'percentage': ':.2%'},
+             barmode='relative',
+             color_discrete_map=party_colors)
+
+    fig.update_yaxes(title='Percentage', tickformat='%')
+    fig.update_layout(
+        {
+        "paper_bgcolor": colors['light_grey'],
+        "plot_bgcolor": colors['light_grey'],
+        },
+        legend_title='Political Party',
+    )
+
+    return fig
 
 def create_donut_chart(df):
      # Calculate the counts for each category in the 'trump_2020' column
@@ -89,7 +121,9 @@ def create_donut_chart(df):
  # Use the function to create the figure for the initial state of the donut chart
 donut_chart_figure = create_donut_chart(df)
 
-stacked_chart = create_stacked_chart(df_pct)
+stacked_chart_race = create_stacked_chart_race(df_pct)
+
+stacked_chart_education = create_stacked_chart_education(df_pct_education)
 
 # Donut chart component
 donut_chart_component = dcc.Graph(
@@ -97,10 +131,17 @@ donut_chart_component = dcc.Graph(
     figure=donut_chart_figure
  )
 
-stacked_chart_component = dcc.Graph(
-    id='stacked-chart',
-    figure=stacked_chart
+stacked_chart_component_race = dcc.Graph(
+    id='stacked-chart-race',
+    figure=stacked_chart_race
 )
+
+stacked_chart_component_education = dcc.Graph(
+    id='stacked-chart-education',
+    figure=stacked_chart_education
+)
+
+
 
 
 
@@ -149,7 +190,8 @@ app.layout = html.Div([
     dbc.Row([
         html.Br(),  # Add whitespace; br = "break",
         html.Br(),  # Add whitespace; br = "break",
-        dbc.Col(dcc.Graph(id='stacked-chart',figure=stacked_chart)),
+        dbc.Col(dcc.Graph(id='stacked-chart-race',figure=stacked_chart_race)),
+        dbc.Col(dcc.Graph(id='stacked-chart-education',figure=stacked_chart_education)),
         dbc.Col(dcc.Graph(id='donut-chart', figure=donut_chart_figure)),
     ],style={'backgroundColor': colors['light_grey']}),
 ])
@@ -188,14 +230,14 @@ def update_donut_chart(age_range,
 
 
 @app.callback(
-     Output('stacked-chart', 'figure'),
+     Output('stacked-chart-race', 'figure'),
      [Input('age-slider', 'value'),
      Input('higher-education-dropdown','value'),
      Input('ideology-dropdown', 'value'),
      Input('racial-group-dropdown','value')]
  )
 
-def update_stacked_chart(age_range,
+def update_stacked_chart_race(age_range,
                        education,
                        ideology,
                        race):
@@ -206,7 +248,30 @@ def update_stacked_chart(age_range,
 
     df_pct = filtered_df.groupby(['race', 'political_party']).size().unstack(fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
 
-    return create_stacked_chart(df_pct)
+    return create_stacked_chart_race(df_pct)
+
+
+
+@app.callback(
+     Output('stacked-chart-education', 'figure'),
+     [Input('age-slider', 'value'),
+     Input('higher-education-dropdown','value'),
+     Input('ideology-dropdown', 'value'),
+     Input('racial-group-dropdown','value')]
+ )
+
+def update_stacked_chart_education(age_range,
+                       education,
+                       ideology,
+                       race):
+    filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
+    filtered_df = filtered_df[filtered_df['higher_education'] == education]
+    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
+    filtered_df = filtered_df[filtered_df['race'] == race]
+
+    df_pct = filtered_df.groupby(['higher_education', 'political_party']).size().unstack(fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
+
+    return create_stacked_chart_education(df_pct)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
