@@ -143,9 +143,8 @@ stacked_chart_component_education = dcc.Graph(
 
 
 
-
-
 app.layout = html.Div([
+
     dbc.Row([
         dbc.Col([
             html.H1("Cards Against Humanity: Future of Democracy and Elections in America", style={'textAlign': 'center','color': '#0660a9', 'fontSize':'24px'}),
