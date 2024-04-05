@@ -6,29 +6,22 @@ import altair as alt
 import plotly.express as px
 
 # Initialize the app
-app = Dash(__name__, external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
+app = Dash(__name__,
+           external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
+
+colors = {'light_blue': '#0d76bd',
+          'dark_blue': '#0660a9',
+          'red': '#ed1c23',
+          'white': '#ffffff',
+          'grey': '#888888',
+          'light_grey': '#d3d3d3'
+          }
 
 server = app.server
 
 # Sample data (replace this with your actual data loading logic)
 df = pd.read_csv("data/processed/data_cleaned.csv")
 
-
-# Charts 
-# Calculate percentages for each political party within each race
-df_pct = df.groupby(['race', 'political_party']).size().unstack(fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
-
-# Create Altair chart
-race_pol_party_chart1 = alt.Chart(df_pct).mark_bar().encode(
-    x=alt.X('race', axis=alt.Axis(title='Race')),
-    y=alt.Y('percentage:Q', axis=alt.Axis(format='%'), stack='normalize', title='Percentage'),
-    color=alt.Color('political_party', legend=alt.Legend(title='Political Party'))
-).properties(
-    title='100% Stacked Bar Chart of Political Party by Race'
-)
-
-
-# Get unique age range values for drop downs
 age_range_ = df['age_range'].unique().tolist()
 race_ = df['race'].unique().tolist()
 ideology_ = df['ideology'].unique().tolist()
@@ -78,9 +71,6 @@ app.layout = html.Div(
     dvc.Vega(spec=race_pol_party_chart1.to_dict())
 ])
 
-# Server side callbacks/reactivity
-# ...
 
-# Run the app/dashboard
 if __name__ == '__main__':
     app.run_server()
