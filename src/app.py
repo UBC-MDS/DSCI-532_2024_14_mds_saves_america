@@ -184,8 +184,9 @@ table_component = html.Div([
             }
         ],
         style_header={
-            'backgroundColor': 'rgb(230, 230, 230)',
-            'fontWeight': 'bold'
+            'backgroundColor': colors['light_blue'],
+            'fontWeight': 'bold',
+            'color':'white'
         },
         style_cell={
             'whiteSpace': 'normal',
