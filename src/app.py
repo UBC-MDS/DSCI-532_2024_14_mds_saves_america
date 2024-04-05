@@ -165,7 +165,9 @@ def create_war_likelihood_chart(df):
     )
     return fig
 
-table_component = html.Div(
+table_component = html.Div([
+    html.P("Americans' approval of Donald Trump vs Public opinion on whether Elections are fair",
+           style={ 'fontSize': '18px'}),
     dash_table.DataTable(
         id='approval-fairness-table',
         columns=[
@@ -196,8 +198,8 @@ table_component = html.Div(
             'overflowX': 'auto'  # Enable horizontal scrolling if table exceeds container width
         },
     ),
-    style={'overflowX': 'auto'}  # Ensure horizontal scrolling is enabled for the container
-)
+], style={'overflowX': 'auto'})  # Ensure horizontal scrolling is enabled for the container
+
 
 
  # Use the function to create the figure
