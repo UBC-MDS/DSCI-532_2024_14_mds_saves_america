@@ -5,7 +5,7 @@ import pandas as pd
 import altair as alt
 import plotly.express as px
 from dash.dependencies import Input, Output
-import dash_table
+from dash import dash_table
 # Initialize the app
 app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
@@ -165,26 +165,43 @@ def create_war_likelihood_chart(df):
     )
     return fig
 
-table_component = dash_table.DataTable(
-    id='approval-fairness-table',
-    columns=[
-        {"name": "Trump Approval", "id": "trump_approval"},
-        {"name": "No", "id": "No"},
-        {"name": "Yes", "id": "Yes"},
-        {"name": "Somewhat Confident", "id": "Somewhat Confident"},
-        {"name": "Very Confident", "id": "Very Confident"}
-    ],
-    style_data_conditional=[
-        {
-            'if': {'row_index': 'odd'},
-            'backgroundColor': 'rgb(248, 248, 248)'
-        }
-    ],
-    style_header={
-        'backgroundColor': 'rgb(230, 230, 230)',
-        'fontWeight': 'bold'
-    }
+table_component = html.Div(
+    dash_table.DataTable(
+        id='approval-fairness-table',
+        columns=[
+            {"name": "Trump Approval", "id": "trump_approval"},
+            {"name": "DK/REF", "id": "DK/REF"},
+            {"name": "No", "id": "No"},
+            {"name": "Yes, somewhat confident", "id": "Yes, somewhat confident"},
+            {"name": "Yes, very confident", "id": "Yes, very confident"}
+        ],
+        style_data_conditional=[
+            {
+                'if': {'row_index': 'odd'},
+                'backgroundColor': 'rgb(248, 248, 248)'
+            }
+        ],
+        style_header={
+            'backgroundColor': 'rgb(230, 230, 230)',
+            'fontWeight': 'bold'
+        },
+        style_cell={
+            'whiteSpace': 'normal',
+            'height': 'auto',
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+            'maxWidth': 0,
+        },
+        style_table={
+            'overflowX': 'auto'  # Enable horizontal scrolling if table exceeds container width
+        },
+    ),
+    style={'overflowX': 'auto'}  # Ensure horizontal scrolling is enabled for the container
 )
+
+
+
+
 
  # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
@@ -250,17 +267,16 @@ app.layout = html.Div([
         dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
                 style={'color': colors['white']}), width=1),
         dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
-                             value=race_[0], id="racial-group-dropdown"), width=2),
+                             value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
         dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
                 style={'color': colors['white']}), width=1),
         dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
-                             value=ideology_[0], id="ideology-dropdown"), width=2),
+                             value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
         dbc.Col(html.Label("Level of Higher Education",
                 htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
         dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
-                             value=higher_education_[0], id="higher-education-dropdown"), width=2),
+                             value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True), width=2),
     ], style={'backgroundColor': colors['light_blue'], 'padding': '10px'}),
-
 
     # Main content row with two columns for the two main sections
     dbc.Row([
@@ -299,9 +315,9 @@ def update_donut_chart(age_range,
                        ideology,
                        race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     return create_donut_chart(filtered_df)
 
@@ -318,9 +334,9 @@ def update_stacked_chart_race(age_range,
                               ideology,
                               race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     df_pct = filtered_df.groupby(['race', 'political_party']).size().unstack(
         fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
@@ -340,16 +356,16 @@ def update_stacked_chart_education(age_range,
                                    ideology,
                                    race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     df_pct = filtered_df.groupby(['higher_education', 'political_party']).size().unstack(
         fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
 
     return create_stacked_chart_education(df_pct)
 
-# Define the callback to update the table data
+
 @app.callback(
     Output('approval-fairness-table', 'data'),
     [Input('age-slider', 'value'),
@@ -359,9 +375,9 @@ def update_stacked_chart_education(age_range,
 )
 def update_table_data(age_range, education, ideology, race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     # Pivot the DataFrame to get the counts for each combination of 'trump_approval' and 'fairness_voting'
     pivot_df = filtered_df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
@@ -369,8 +385,8 @@ def update_table_data(age_range, education, ideology, race):
 
     # Convert pivot_df to a format suitable for DataTable
     data = pivot_df.to_dict('records')
+    print(data)
     return data
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
