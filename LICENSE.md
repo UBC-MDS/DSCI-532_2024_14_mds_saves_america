@@ -69,7 +69,7 @@ Salva Umar,
 Arturo Rey
 
 ## License
-The app code contained within this repository is licensed under the MIT license. See [the license file](LICENSE.md) for more information.
+The app code contained within this repository is licensed under the MIT license. See [the license file](LICENSE) for more information.
 
 All reports contained here are licensed under the [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License](https://creativecommons.org/licenses/by-sa/4.0/). See [the license file](LICENSE.md) for more information.
 
