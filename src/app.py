@@ -386,7 +386,6 @@ def update_table_data(age_range, education, ideology, race):
 
     # Convert pivot_df to a format suitable for DataTable
     data = pivot_df.to_dict('records')
-    print(data)
     return data
 
 if __name__ == '__main__':
