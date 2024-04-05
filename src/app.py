@@ -9,6 +9,7 @@ from dash import dash_table
 # Initialize the app
 app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
+server = app.server
 
 colors = {'light_blue': '#0d76bd',
           'dark_blue': '#0660a9',
@@ -389,4 +390,4 @@ def update_table_data(age_range, education, ideology, race):
     return data
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
