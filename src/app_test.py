@@ -141,13 +141,27 @@ stacked_chart_component_education = dcc.Graph(
     figure=stacked_chart_education
 )
 
+navbar = dbc.NavbarSimple(
+    children=[
+        dbc.NavItem(dbc.NavLink("Page 1", href="/page-1", style={'color': colors['light_blue']})),
+        dbc.NavItem(dbc.NavLink("Page 2", href="/page-2", style={'color': colors['light_blue']})),
+    ],
+    brand="Cards Against Humanity: Future of Democracy and Elections in America",
+    brand_href="#",
+    color=colors['light_grey'],
+    dark=True
+)
 
+navbar_brand_style = {
+    'color': colors['light_blue'],
+    'fontSize':'24px'
+}
+
+navbar.brand_style = navbar_brand_style
 
 app.layout = html.Div([
-
+    navbar,
     dbc.Row([
-        dbc.Col([
-            html.H1("Cards Against Humanity: Future of Democracy and Elections in America", style={'textAlign': 'center','color': '#0660a9', 'fontSize':'24px'}),
             dbc.Row([
                 dbc.Col([
                     html.Label("Age Range", htmlFor="state-dropdown1",style={'color':colors['white']}),
@@ -184,7 +198,6 @@ app.layout = html.Div([
                 html.Br(),    
             ], style={'backgroundColor': colors['light_blue'], 'width': '100%', 'margin-left': '0px', 'margin-right': '0px'}),
             dbc.Row(html.Div(style={'height': '10px', 'background-color': colors['light_blue'],'width': '100%', 'margin-left': '0px', 'margin-right': '0px'}))
-        ])
     ]),
     dbc.Row([
         html.Br(),  # Add whitespace; br = "break",
