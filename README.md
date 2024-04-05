@@ -1,4 +1,4 @@
-# MDS Saves America
+# MDS Saves America 
 ### Cards Against Humanity: Future of Democracy and American Elections
 
 <img src="img/election.png" width="700">
@@ -44,9 +44,23 @@ Tailor your view by adjusting the demographic filters. You have control over:
 ### Explore Our Dashboard in Action
 Get a glimpse of the dashboard's capabilities and user experience with our demo GIF. See firsthand how you can interact with the various elements and filters to obtain the insights you need.
 
-------add link here + gif------
+![Demo GIF](link_to_your_demo_gif.gif)
 
 For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](https://dsci-532-2024-14-mds-saves-america-1.onrender.com/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
+
+## Support
+If you encounter any issues or have any questions about using our dashboard, please open an issue on GitHub.
+
+## Running the App Locally
+To run the app locally and potentially contribute to its development, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Navigate to the project directory.
+3. Install the environment using `conda env create -f environment.yml` and then activate it using the command `conda activate saves_america`
+4. Run the app with `python src/app.py`.
+5. Visit http://localhost:8050/ in your web browser to view the app.
+
+For more information on contributing to the project, please refer to the [contributing guidelines](CONTRIBUTING.md).
 
 ## Contributors
 Sampson Yu, 
@@ -54,8 +68,8 @@ Sophia Zhao,
 Salva Umar, 
 Arturo Rey
 
-## ©️ License
-The app code contained within this repository is licensed under the MIT license. See [the license file](LICENSE.md) for more information.
+## License
+The app code contained within this repository is licensed under the MIT license. See [the license file](LICENSE) for more information.
 
 All reports contained here are licensed under the [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License](https://creativecommons.org/licenses/by-sa/4.0/). See [the license file](LICENSE.md) for more information.
 
