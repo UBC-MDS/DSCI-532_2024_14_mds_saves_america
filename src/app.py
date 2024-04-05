@@ -4,7 +4,8 @@ import dash_vega_components as dvc
 import pandas as pd
 import altair as alt
 import plotly.express as px
-
+from dash.dependencies import Input, Output
+import dash_table
 # Initialize the app
 app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
@@ -164,6 +165,27 @@ def create_war_likelihood_chart(df):
     )
     return fig
 
+table_component = dash_table.DataTable(
+    id='approval-fairness-table',
+    columns=[
+        {"name": "Trump Approval", "id": "trump_approval"},
+        {"name": "No", "id": "No"},
+        {"name": "Yes", "id": "Yes"},
+        {"name": "Somewhat Confident", "id": "Somewhat Confident"},
+        {"name": "Very Confident", "id": "Very Confident"}
+    ],
+    style_data_conditional=[
+        {
+            'if': {'row_index': 'odd'},
+            'backgroundColor': 'rgb(248, 248, 248)'
+        }
+    ],
+    style_header={
+        'backgroundColor': 'rgb(230, 230, 230)',
+        'fontWeight': 'bold'
+    }
+)
+
  # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
 stacked_chart_race = create_stacked_chart_race(df_pct)
@@ -259,6 +281,7 @@ app.layout = html.Div([
             html.H2("Elections: Donald Trump Focused",
                     style={'textAlign': 'center'}),
             dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure)),
+            dbc.Row(table_component),
         ], md=6),
     ], style={'marginTop': 30}),
 ], style={'backgroundColor': colors['light_grey']})
@@ -325,6 +348,28 @@ def update_stacked_chart_education(age_range,
         fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
 
     return create_stacked_chart_education(df_pct)
+
+# Define the callback to update the table data
+@app.callback(
+    Output('approval-fairness-table', 'data'),
+    [Input('age-slider', 'value'),
+     Input('higher-education-dropdown', 'value'),
+     Input('ideology-dropdown', 'value'),
+     Input('racial-group-dropdown', 'value')]
+)
+def update_table_data(age_range, education, ideology, race):
+    filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
+    filtered_df = filtered_df[filtered_df['higher_education'] == education]
+    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
+    filtered_df = filtered_df[filtered_df['race'] == race]
+
+    # Pivot the DataFrame to get the counts for each combination of 'trump_approval' and 'fairness_voting'
+    pivot_df = filtered_df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
+    pivot_df.reset_index(inplace=True)
+
+    # Convert pivot_df to a format suitable for DataTable
+    data = pivot_df.to_dict('records')
+    return data
 
 
 if __name__ == '__main__':
