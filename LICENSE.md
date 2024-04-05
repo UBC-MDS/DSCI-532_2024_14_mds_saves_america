@@ -1,76 +1,48 @@
-# MDS Saves America 
-### Cards Against Humanity: Future of Democracy and American Elections
+# Software
 
-<img src="img/election.png" width="700">
+Except where otherwise noted, the example programs and other software
+provided in the project-avalon repository are made available under the
+MIT license.
 
-## Project Summary:
-The Future of Democracy and American Elections Dashboard project aims to provide a comprehensive analysis of public sentiment and perceptions surrounding American politics, during August 2018. Through intuitive visualizations and filtering options, users can explore general correlations across demographics and delve into specific insights related to Donald Trump's presidency and the opinion of the American public on the future of America. The dashboard offers a user-friendly interface for uncovering valuable insights from survey data collected by the cards against humanity [website](https://thepulseofthenation.com/#future).
+**MIT License**
+Copyright (c) 2024 Master of Data Science at the University of British Columbia
 
-## Motivation Behind Our Project
-### The Challenge
-As the 2024 USA elections approach, American voters are faced with a pivotal decision: choosing their next President. This election is particularly challenging due to the unique backgrounds and histories of the candidates - Joseph Robinette Biden from the Democratic Party, and Donald John Trump from the Republican Party. Both candidates, having previously held the office, bring with them a mix of accomplishments and controversies. This complex backdrop makes it increasingly difficult for voters to align their choices with their personal ideologies and beliefs.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-### Why It's Important
-In a landscape brimming with information and varying opinions, it’s essential for voters to have a clear and unbiased perspective on what each candidate stands for. Understanding the pulse of the nation, especially reflecting back on opinions from a crucial period like August 2018, is key to making an informed decision. Our dashboard emerges as a crucial tool in this decision-making process.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-### Our Solution
-We have developed a dashboard that acts as a comprehensive guide for these elections. Utilizing the rich dataset from 'The Pulse of the Nation' survey conducted in August 2018, our dashboard offers an intuitive and interactive way for voters to explore crucial facets of the election:
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-- Candidate Ideologies: Delve into the core beliefs and stances of each candidate, providing clarity on what they represent.
+# Dataset
 
-- Ethnical Demographics and Public Opinion: Examine how different demographics view each candidate and understand the general sentiment of the public.
+The dataset is distributed under **Creative Commons 1.0 Universal License** ([CC BY 1.0](https://creativecommons.org/publicdomain/zero/1.0/)).
 
-- User-Friendly Exploration: Through interactive visualizations and filters, users can seamlessly navigate through complex data, uncovering insights that resonate with their personal values.
+# Instructional Material
 
-By equipping voters with this tool, we aim to bridge the gap between information and understanding, empowering each American citizen to make a choice that truly reflects their hopes and ideals for the nation's future.
+All reports and non-software related materials including tables, plots and images under this project is
+made available under the **Creative Commons Attribution 4.0 International License** ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)). 
 
-## Interactive Features of Our Dashboard
-Our dashboard has been meticulously crafted to provide an engaging experience with several interactive elements that allow for personalized exploration. Here's what you can expect:
+## You are free to:
+**Share** — copy and redistribute the material in any medium or format for any purpose, even commercially.
 
-### Demographic Filters
-Tailor your view by adjusting the demographic filters. You have control over:
+**Adapt** — remix, transform, and build upon the material for any purpose, even commercially.
+ 
+The licensor cannot revoke these freedoms as long as you follow the license terms.
 
-- **Age Range:** A flexible slider to narrow down the data by specific age groups.
-- **Racial Group:** A dropdown menu to select and view data for particular racial demographics.
-- **Education Level:** Choose from various educational backgrounds to see how education influences political opinions.
-- **Political Ideology:** A dropdown that sorts data by political leanings, from conservative to liberal and everything in between.
+## Under the following terms:
 
-### Data Visualizations
+**Attribution** — You must give [appropriate credit](https://creativecommons.org/licenses/by/4.0/#ref-appropriate-credit), provide a link to the license, and [indicate if changes were made](https://creativecommons.org/licenses/by/4.0/#ref-indicate-changes). You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. 
 
-- **Bar Charts:** Get a granular look at political affiliations across different demographics with our stacked bar charts. These visualizations dynamically adjust to your filter settings, giving you a detailed breakdown of the political landscape.
-- **Donut Chart:** Discover the likelihood of Donald Trump's re-election at a glance. 
-- **Tabulated Data:** View a comparative table that correlates Americans' approval of Donald Trump with their opinions on election fairness. This section provides a straightforward, numerical approach to understanding public perception.
-
-### Explore Our Dashboard in Action
-Get a glimpse of the dashboard's capabilities and user experience with our demo GIF. See firsthand how you can interact with the various elements and filters to obtain the insights you need.
-
-![Demo GIF](link_to_your_demo_gif.gif)
-
-For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](https://dsci-532-2024-14-mds-saves-america-1.onrender.com/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
-
-## Support
-If you encounter any issues or have any questions about using our dashboard, please open an issue on GitHub.
-
-## Running the App Locally
-To run the app locally and potentially contribute to its development, follow these steps:
-
-1. Clone this repository to your local machine.
-2. Navigate to the project directory.
-3. Install the environment using `conda env create -f environment.yml` and then activate it using the command `conda activate saves_america`
-4. Run the app with `python src/app.py`.
-5. Visit http://localhost:8050/ in your web browser to view the app.
-
-For more information on contributing to the project, please refer to the [contributing guidelines](CONTRIBUTING.md).
-
-## Contributors
-Sampson Yu, 
-Sophia Zhao, 
-Salva Umar, 
-Arturo Rey
-
-## License
-The app code contained within this repository is licensed under the MIT license. See [the license file](LICENSE) for more information.
-
-All reports contained here are licensed under the [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License](https://creativecommons.org/licenses/by-sa/4.0/). See [the license file](LICENSE.md) for more information.
-
-The dataset employed in this analysis is distributed under an open-source license.
+**No additional restrictions** — You may not apply legal terms or [technological measures](https://creativecommons.org/licenses/by/4.0/#ref-technological-measures) that legally restrict others from doing anything the license permits.
