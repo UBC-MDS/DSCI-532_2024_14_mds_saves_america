@@ -4,10 +4,12 @@ import dash_vega_components as dvc
 import pandas as pd
 import altair as alt
 import plotly.express as px
-
+from dash.dependencies import Input, Output
+from dash import dash_table
 # Initialize the app
 app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
+server = app.server
 
 colors = {'light_blue': '#0d76bd',
           'dark_blue': '#0660a9',
@@ -164,6 +166,44 @@ def create_war_likelihood_chart(df):
     )
     return fig
 
+table_component = html.Div([
+    html.P("Americans' approval of Donald Trump vs Public opinion on whether Elections are fair",
+           style={ 'fontSize': '18px'}),
+    dash_table.DataTable(
+        id='approval-fairness-table',
+        columns=[
+            {"name": "Trump Approval", "id": "trump_approval"},
+            {"name": "DK/REF", "id": "DK/REF"},
+            {"name": "No", "id": "No"},
+            {"name": "Yes, somewhat confident", "id": "Yes, somewhat confident"},
+            {"name": "Yes, very confident", "id": "Yes, very confident"}
+        ],
+        style_data_conditional=[
+            {
+                'if': {'row_index': 'odd'},
+                'backgroundColor': 'rgb(248, 248, 248)'
+            }
+        ],
+        style_header={
+            'backgroundColor': colors['light_blue'],
+            'fontWeight': 'bold',
+            'color':'white'
+        },
+        style_cell={
+            'whiteSpace': 'normal',
+            'height': 'auto',
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+            'maxWidth': 0,
+        },
+        style_table={
+            'overflowX': 'auto'  # Enable horizontal scrolling if table exceeds container width
+        },
+    ),
+], style={'overflowX': 'auto'})  # Ensure horizontal scrolling is enabled for the container
+
+
+
  # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
 stacked_chart_race = create_stacked_chart_race(df_pct)
@@ -196,9 +236,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Page 1", href="/page-1", style={'color': colors['light_blue']})),
         dbc.NavItem(dbc.NavLink("Page 2", href="/page-2", style={'color': colors['light_blue']})),
     ],
-    brand="Cards Against Humanity: Future of Democracy and Elections in America",
-    brand_href="#",
-    color=colors['light_grey'],
+    color='0660a9',
     dark=True
 )
 
@@ -207,8 +245,8 @@ navbar_brand_style = {
     'fontSize':'24px'
 }
 
+
 app.layout = html.Div([
-    navbar,
     html.Link(
         href='https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css',
         rel='stylesheet'
@@ -216,32 +254,31 @@ app.layout = html.Div([
     # Header Row with title and filters
     dbc.Row([
         dbc.Col(html.H1("Cards Against Humanity: Future of Democracy and Elections in America",
-                        style={'textAlign': 'center', 'color': '#0660a9', 'fontSize': '24px'})),
+                        style={'textAlign': 'center', 'color': '#0660a9', 'fontSize': '24px'}))
     ]),
 
     # Filters row
-    dbc.Row([
-        dbc.Col(html.Label("Age Range", htmlFor="age-slider",
-                style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
-                                marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
-    ], style={'backgroundColor': colors['light_blue'], 'padding': '10px'}),
+   dbc.Row([
+    dbc.Col(html.Label("Age Range", htmlFor="age-slider",
+            style={'color': colors['white']}), width=1),
+    dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
+                            marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
+], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     dbc.Row([
-        dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
-                style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
-                             value=race_[0], id="racial-group-dropdown"), width=2),
-        dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
-                style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
-                             value=ideology_[0], id="ideology-dropdown"), width=2),
-        dbc.Col(html.Label("Level of Higher Education",
-                htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
-                             value=higher_education_[0], id="higher-education-dropdown"), width=2),
-    ], style={'backgroundColor': colors['light_blue'], 'padding': '10px'}),
-
+    dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
+            style={'color': colors['white']}), width=1),
+    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
+                         value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
+    dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
+            style={'color': colors['white']}), width=1),
+    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
+                         value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
+    dbc.Col(html.Label("Level of Higher Education",
+            htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
+    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
+                         value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True), width=2),
+], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     # Main content row with two columns for the two main sections
     dbc.Row([
@@ -262,6 +299,7 @@ app.layout = html.Div([
             html.H2("Elections: Donald Trump Focused",
                     style={'textAlign': 'center'}),
             dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure)),
+            dbc.Row(table_component),
         ], md=6),
     ], style={'marginTop': 30}),
 ], style={'backgroundColor': colors['light_grey']})
@@ -279,9 +317,9 @@ def update_donut_chart(age_range,
                        ideology,
                        race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     return create_donut_chart(filtered_df)
 
@@ -298,9 +336,9 @@ def update_stacked_chart_race(age_range,
                               ideology,
                               race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     df_pct = filtered_df.groupby(['race', 'political_party']).size().unstack(
         fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
@@ -320,9 +358,9 @@ def update_stacked_chart_education(age_range,
                                    ideology,
                                    race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
-    filtered_df = filtered_df[filtered_df['higher_education'] == education]
-    filtered_df = filtered_df[filtered_df['ideology'] == ideology]
-    filtered_df = filtered_df[filtered_df['race'] == race]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
 
     df_pct = filtered_df.groupby(['higher_education', 'political_party']).size().unstack(
         fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
@@ -330,5 +368,26 @@ def update_stacked_chart_education(age_range,
     return create_stacked_chart_education(df_pct)
 
 
+@app.callback(
+    Output('approval-fairness-table', 'data'),
+    [Input('age-slider', 'value'),
+     Input('higher-education-dropdown', 'value'),
+     Input('ideology-dropdown', 'value'),
+     Input('racial-group-dropdown', 'value')]
+)
+def update_table_data(age_range, education, ideology, race):
+    filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
+    filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
+    filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
+    filtered_df = filtered_df[filtered_df['race'].isin(race)]
+
+    # Pivot the DataFrame to get the counts for each combination of 'trump_approval' and 'fairness_voting'
+    pivot_df = filtered_df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
+    pivot_df.reset_index(inplace=True)
+
+    # Convert pivot_df to a format suitable for DataTable
+    data = pivot_df.to_dict('records')
+    return data
+
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
