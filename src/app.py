@@ -200,9 +200,6 @@ table_component = html.Div(
 )
 
 
-
-
-
  # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
 stacked_chart_race = create_stacked_chart_race(df_pct)
@@ -244,6 +241,7 @@ navbar_brand_style = {
     'fontSize':'24px'
 }
 
+
 app.layout = html.Div([
     html.Link(
         href='https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css',
@@ -256,27 +254,27 @@ app.layout = html.Div([
     ]),
 
     # Filters row
-    dbc.Row([
-        dbc.Col(html.Label("Age Range", htmlFor="age-slider",
-                style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
-                                marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
-    ], style={'backgroundColor': colors['light_blue'], 'padding': '10px'}),
+   dbc.Row([
+    dbc.Col(html.Label("Age Range", htmlFor="age-slider",
+            style={'color': colors['white']}), width=1),
+    dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
+                            marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
+], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     dbc.Row([
-        dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
-                style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
-                             value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
-        dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
-                style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
-                             value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
-        dbc.Col(html.Label("Level of Higher Education",
-                htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
-                             value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True), width=2),
-    ], style={'backgroundColor': colors['light_blue'], 'padding': '10px'}),
+    dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
+            style={'color': colors['white']}), width=1),
+    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
+                         value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
+    dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
+            style={'color': colors['white']}), width=1),
+    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
+                         value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
+    dbc.Col(html.Label("Level of Higher Education",
+            htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
+    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
+                         value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True), width=2),
+], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     # Main content row with two columns for the two main sections
     dbc.Row([
