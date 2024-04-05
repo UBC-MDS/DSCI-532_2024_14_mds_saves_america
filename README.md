@@ -45,22 +45,9 @@ Tailor your view by adjusting the demographic filters. You have control over:
 ### Explore Our Dashboard in Action
 Get a glimpse of the dashboard's capabilities and user experience with our demo GIF. See firsthand how you can interact with the various elements and filters to obtain the insights you need.
 
-------add link here------
+------add link here + gif------
 
-For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided below. Dive into the data, play with the filters, and see the visualizations respond in real-time.
-
-**The Future of Democracy and American Elections Dashboard(url)**
-
-Certainly! Adding a support section is a great way to encourage users to reach out if they encounter issues or have questions. Here’s a suggested addition for that:
-
-## Getting Support
-
-**Open an Issue:** If you're facing an issue, please visit our [GitHub Issues page](https://github.com/UBC-MDS/DSCI-532_2024_14_mds_saves_america/issues) and open a new issue. Provide a detailed description of the problem, and we'll address it as promptly as we can.
-
-Your contributions and feedback are valuable to us and help in continually improving this tool.
-
-## Dashboard Design (Draft):
-<img src="img/Dashboard.jpg" width="700">
+For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](http://127.0.0.1:8050/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
 
 ## Contributors
 Sampson Yu, 
