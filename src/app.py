@@ -196,9 +196,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Page 1", href="/page-1", style={'color': colors['light_blue']})),
         dbc.NavItem(dbc.NavLink("Page 2", href="/page-2", style={'color': colors['light_blue']})),
     ],
-    brand="Cards Against Humanity: Future of Democracy and Elections in America",
-    brand_href="#",
-    color=colors['light_grey'],
+    color='0660a9',
     dark=True
 )
 
@@ -208,7 +206,6 @@ navbar_brand_style = {
 }
 
 app.layout = html.Div([
-    navbar,
     html.Link(
         href='https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css',
         rel='stylesheet'
@@ -216,7 +213,7 @@ app.layout = html.Div([
     # Header Row with title and filters
     dbc.Row([
         dbc.Col(html.H1("Cards Against Humanity: Future of Democracy and Elections in America",
-                        style={'textAlign': 'center', 'color': '#0660a9', 'fontSize': '24px'})),
+                        style={'textAlign': 'center', 'color': '#0660a9', 'fontSize': '24px'}))
     ]),
 
     # Filters row
