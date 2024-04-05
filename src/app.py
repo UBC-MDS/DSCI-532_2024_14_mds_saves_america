@@ -7,6 +7,8 @@ import altair as alt
 # Initialize the app
 app = Dash(__name__, external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
 
+server = app.server
+
 # Sample data (replace this with your actual data loading logic)
 df = pd.read_csv("data/processed/data_cleaned.csv")
 
@@ -67,4 +69,4 @@ app.layout = html.Div(
 
 # Run the app/dashboard
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
