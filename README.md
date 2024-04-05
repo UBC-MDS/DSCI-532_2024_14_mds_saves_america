@@ -44,7 +44,7 @@ Tailor your view by adjusting the demographic filters. You have control over:
 ### Explore Our Dashboard in Action
 Get a glimpse of the dashboard's capabilities and user experience with our demo GIF. See firsthand how you can interact with the various elements and filters to obtain the insights you need.
 
-![Demo GIF](link_to_your_demo_gif.gif)
+![Demo GIF](link_to_your_demo_gif.gif) -- GIF TO BE ADDE HERE --
 
 For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](https://dsci-532-2024-14-mds-saves-america-1.onrender.com/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
 
