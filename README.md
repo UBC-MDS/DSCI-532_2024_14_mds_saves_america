@@ -47,7 +47,7 @@ Get a glimpse of the dashboard's capabilities and user experience with our demo 
 
 ------add link here + gif------
 
-For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](http://127.0.0.1:8050/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
+For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here]([http://127.0.0.1:8050/](https://dsci-532-2024-14-mds-saves-america-1.onrender.com/)). Dive into the data, play with the filters, and see the visualizations respond in real-time.
 
 ## Contributors
 Sampson Yu, 
