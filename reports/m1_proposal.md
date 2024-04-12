@@ -43,6 +43,7 @@ Our dashboard aims to help undecided American voters for the upcoming elections 
 3.  Donald, a 77 year old businessman residing in New York, brings decades of experience in the business field. He has been an entrepreneur for several companies, so he is very keen on learning how these future elections will affect his businesses. Donald has been a Republican most of his life, and is very interested on the Republican Party candidate because he feels like his views align very well with this candidate. Donald feels like this dashboard will help him clear up his doubts about the party, seeing as the country has been divided on political parties, and misinformation seems rampant on social media in the past couple of years.
 
 ## **4. App Sketch and Dashboard Description**
+<img src="img/Dashboard.jpg" alt="Dashboard Image">
 
 The main page of the app presents a summary of the survey data, providing general statistics and comparisons related to American elections. The main page is divided into two sections: general correlations regarding political affiliations and opinions on American survival, and the elections section, which covers public opinion on Donald Trump.
 
