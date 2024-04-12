@@ -6,6 +6,7 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
 
 
+
 colors = {'light_blue': '#0d76bd',
           'dark_blue': '#0660a9',
           'red': '#ed1c23',
@@ -64,7 +65,6 @@ def create_stacked_chart_education(df):
         },
         legend_title='Political Party',
     )
-   
 
     return fig
 
@@ -135,6 +135,7 @@ def create_war_likelihood_chart(df):
     )
     return fig
 
+  
 def create_heatmap(df):
     pivot_df = df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
     fig = px.imshow(pivot_df,

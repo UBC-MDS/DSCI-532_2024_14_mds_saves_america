@@ -47,6 +47,7 @@ war_likelihood_chart_component = dcc.Graph(
     id='war-likelihood-chart',
     figure=war_likelihood_chart
 )
+
 heatmap_component = dcc.Graph(
     id='heatmap',
     figure=heat_map
@@ -145,7 +146,6 @@ app.callback(
      Input('racial-group-dropdown', 'value')]
 )(update_stacked_chart_education)
 
-
 app.callback(
     Output('heatmap', 'figure'),
     [Input('age-slider', 'value'),
@@ -153,6 +153,7 @@ app.callback(
      Input('ideology-dropdown', 'value'),
      Input('racial-group-dropdown', 'value')]
 )(update_heatmap_data)
+
 
 if __name__ == '__main__':
     app.run_server(debug=False)
