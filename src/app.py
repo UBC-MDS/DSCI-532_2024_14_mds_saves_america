@@ -6,7 +6,7 @@ import altair as alt
 import plotly.express as px
 from dash.dependencies import Input, Output
 from dash import dash_table
-from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data
+from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data, update_war_likelihood_chart
 from dash import Dash
 from dash.dependencies import Input, Output
 
@@ -19,8 +19,7 @@ app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
 server = app.server
 
-
- # Use the function to create the figure
+# Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
 stacked_chart_race = create_stacked_chart_race(df_pct)
 stacked_chart_education = create_stacked_chart_education(df_pct_education)
@@ -47,7 +46,6 @@ war_likelihood_chart_component = dcc.Graph(
     id='war-likelihood-chart',
     figure=war_likelihood_chart
 )
-
 heatmap_component = dcc.Graph(
     id='heatmap',
     figure=heat_map
@@ -76,23 +74,24 @@ app.layout = html.Div([
     # Filters row
     dbc.Row([
         dbc.Col(html.Label("Age Range", htmlFor="age-slider",
-                            style={'color': colors['white']}), width=1),
+                           style={'color': colors['white']}), width=1),
         dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
                                 marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
     ], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     dbc.Row([
         dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
-                            style={'color': colors['white']}), width=2),
+                           style={'color': colors['white']}), width=2),
         dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
                              value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
-        html.Div(style={'width': '1px', 'background-color': 'white', 'height': '100%', 'margin': 'auto'}),  # Vertical line
+        html.Div(style={'width': '1px', 'background-color': 'white',
+                 'height': '100%', 'margin': 'auto'}),  # Vertical line
         dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
-                            style={'color': colors['white']}), width=2),
+                           style={'color': colors['white']}), width=2),
         dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
                              value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
         dbc.Col(html.Label("Level of Higher Education",
-                            htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
+                           htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
         dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
                              value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True),
                 width=2),
@@ -111,16 +110,17 @@ app.layout = html.Div([
             ], style={'margin': '20px'}),  # Add margin to the inner row
             dbc.Row(war_likelihood_chart_component),
         ], md=6),
-      
+
         # Column for "Elections: Donald Trump Focused"
         dbc.Col([
             html.H2("Elections: Donald Trump Focused",
                     style={'textAlign': 'center'}),
-            dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure), justify='center'),  # Center align the graph
-            dbc.Row(heatmap_component, justify='center'),  # Center align the heatmap
-
+            dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure),
+                    justify='center'),  # Center align the graph
+            # Center align the heatmap
+            dbc.Row(heatmap_component, justify='center'),
         ], md=6),
-    ], style={'marginTop': 30, 'marginBottom': 30},className='vertical-line-row'),  # Add margin to the main content row
+    ], style={'marginTop': 30, 'marginBottom': 30}, className='vertical-line-row'),  # Add margin to the main content row
 ], style={'backgroundColor': colors['light_grey'], 'overflow': 'hidden'})
 
 
@@ -157,6 +157,14 @@ app.callback(
      Input('ideology-dropdown', 'value'),
      Input('racial-group-dropdown', 'value')]
 )(update_heatmap_data)
+
+app.callback(
+    Output('war-likelihood-chart', 'figure'),
+    [Input('age-slider', 'value'),
+     Input('higher-education-dropdown', 'value'),
+     Input('ideology-dropdown', 'value'),
+     Input('racial-group-dropdown', 'value')]
+)(update_war_likelihood_chart)
 
 if __name__ == '__main__':
     app.run_server(debug=False)
