@@ -64,7 +64,6 @@ def create_stacked_chart_education(df):
         },
         legend_title='Political Party',
     )
-   
 
     return fig
 
@@ -89,7 +88,9 @@ def create_donut_chart(df):
         showlegend=True,
         annotations=[dict(text='Trump', x=0.5, y=0.5,
                           font_size=20, showarrow=False)],
+
         plot_bgcolor=colors['light_grey']
+
 
 
     )
@@ -133,6 +134,7 @@ def create_war_likelihood_chart(df):
         }
     )
     return fig
+
 
 def create_heatmap(df):
     pivot_df = df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)

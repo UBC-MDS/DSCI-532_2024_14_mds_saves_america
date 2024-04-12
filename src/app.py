@@ -47,6 +47,7 @@ war_likelihood_chart_component = dcc.Graph(
     id='war-likelihood-chart',
     figure=war_likelihood_chart
 )
+
 heatmap_component = dcc.Graph(
     id='heatmap',
     figure=heat_map
@@ -117,10 +118,10 @@ app.layout = html.Div([
                     style={'textAlign': 'center'}),
             dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure), justify='center'),  # Center align the graph
             dbc.Row(heatmap_component, justify='center'),  # Center align the heatmap
+
         ], md=6),
     ], style={'marginTop': 30, 'marginBottom': 30},className='vertical-line-row'),  # Add margin to the main content row
 ], style={'backgroundColor': colors['light_grey'], 'overflow': 'hidden'})
-
 
 
 # Link the callbacks
