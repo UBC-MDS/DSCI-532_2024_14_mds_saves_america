@@ -73,27 +73,29 @@ app.layout = html.Div([
     ]),
 
     # Filters row
-   dbc.Row([
-    dbc.Col(html.Label("Age Range", htmlFor="age-slider",
-            style={'color': colors['white']}), width=1),
-    dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
-                            marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
-], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
+    dbc.Row([
+        dbc.Col(html.Label("Age Range", htmlFor="age-slider",
+                            style={'color': colors['white']}), width=1),
+        dbc.Col(dcc.RangeSlider(id='age-slider', min=min_age, max=max_age, step=1, value=[min_age, max_age],
+                                marks={i: str(i) for i in range(min_age, max_age + 1, 10)}), width=10),
+    ], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     dbc.Row([
-    dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
-            style={'color': colors['white']}), width=1),
-    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
-                         value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
-    dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
-            style={'color': colors['white']}), width=1),
-    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
-                         value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
-    dbc.Col(html.Label("Level of Higher Education",
-            htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
-    dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
-                         value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True), width=2),
-], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
+        dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
+                            style={'color': colors['white']}), width=2),
+        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
+                             value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
+        html.Div(style={'width': '1px', 'background-color': 'white', 'height': '100%', 'margin': 'auto'}),  # Vertical line
+        dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
+                            style={'color': colors['white']}), width=2),
+        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
+                             value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
+        dbc.Col(html.Label("Level of Higher Education",
+                            htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=2),
+        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
+                             value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True),
+                width=2),
+    ], style={'backgroundColor': colors['light_blue'], 'padding': '5px'}, justify='center'),
 
     # Main content row with two columns for the two main sections
     dbc.Row([
@@ -102,10 +104,10 @@ app.layout = html.Div([
             html.H2("General Correlations", style={'textAlign': 'center'}),
             dbc.Row([
                 dbc.Col(dcc.Graph(id='stacked-chart-race',
-                        figure=stacked_chart_race), md=6),
+                                  figure=stacked_chart_race), md=6),
                 dbc.Col(dcc.Graph(id='stacked-chart-education',
-                        figure=stacked_chart_education), md=6),
-            ]),
+                                  figure=stacked_chart_education), md=6),
+            ], style={'margin': '20px'}),  # Add margin to the inner row
             dbc.Row(war_likelihood_chart_component),
         ], md=6),
 
@@ -113,11 +115,12 @@ app.layout = html.Div([
         dbc.Col([
             html.H2("Elections: Donald Trump Focused",
                     style={'textAlign': 'center'}),
-            dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure)),
-            dbc.Row(heatmap_component),
+            dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure), justify='center'),  # Center align the graph
+            dbc.Row(heatmap_component, justify='center'),  # Center align the heatmap
         ], md=6),
-    ], style={'marginTop': 30}),
-], style={'backgroundColor': colors['light_grey']})
+    ], style={'marginTop': 30, 'marginBottom': 30}),  # Add margin to the main content row
+], style={'backgroundColor': colors['light_grey'], 'overflow': 'hidden'})
+
 
 
 # Link the callbacks
