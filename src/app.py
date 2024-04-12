@@ -6,12 +6,12 @@ import altair as alt
 import plotly.express as px
 from dash.dependencies import Input, Output
 from dash import dash_table
-from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_table_data
+from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data
 from dash import Dash
 from dash.dependencies import Input, Output
 
 from data import df, df_pct, df_pct_education, min_age, max_age, race_, ideology_, higher_education_
-from components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, table_component
+from components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, create_heatmap
 
 
 # Initialize the app
@@ -25,6 +25,7 @@ donut_chart_figure = create_donut_chart(df)
 stacked_chart_race = create_stacked_chart_race(df_pct)
 stacked_chart_education = create_stacked_chart_education(df_pct_education)
 war_likelihood_chart = create_war_likelihood_chart(df)
+heat_map = create_heatmap(df)
 
 # Donut chart component
 donut_chart_component = dcc.Graph(
@@ -45,6 +46,10 @@ stacked_chart_component_education = dcc.Graph(
 war_likelihood_chart_component = dcc.Graph(
     id='war-likelihood-chart',
     figure=war_likelihood_chart
+)
+heatmap_component = dcc.Graph(
+    id='heatmap',
+    figure=heat_map
 )
 
 colors = {'light_blue': '#0d76bd',
@@ -109,7 +114,7 @@ app.layout = html.Div([
             html.H2("Elections: Donald Trump Focused",
                     style={'textAlign': 'center'}),
             dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure)),
-            dbc.Row(table_component),
+            dbc.Row(heatmap_component),
         ], md=6),
     ], style={'marginTop': 30}),
 ], style={'backgroundColor': colors['light_grey']})
@@ -140,15 +145,14 @@ app.callback(
      Input('racial-group-dropdown', 'value')]
 )(update_stacked_chart_education)
 
+
 app.callback(
-    Output('approval-fairness-table', 'data'),
+    Output('heatmap', 'figure'),
     [Input('age-slider', 'value'),
      Input('higher-education-dropdown', 'value'),
      Input('ideology-dropdown', 'value'),
      Input('racial-group-dropdown', 'value')]
-)(update_table_data)
-
-
+)(update_heatmap_data)
 
 if __name__ == '__main__':
     app.run_server(debug=False)
