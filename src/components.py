@@ -3,6 +3,8 @@ from dash import dash_table
 import pandas as pd
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
+import plotly.graph_objs as go
+
 
 
 colors = {'light_blue': '#0d76bd',
@@ -133,41 +135,23 @@ def create_war_likelihood_chart(df):
     )
     return fig
 
-table_component = html.Div([
-    html.P("Americans' approval of Donald Trump vs Public opinion on whether Elections are fair",
-           style={ 'fontSize': '18px'}),
-    dash_table.DataTable(
-        id='approval-fairness-table',
-        columns=[
-            {"name": "Trump Approval", "id": "trump_approval"},
-            {"name": "DK/REF", "id": "DK/REF"},
-            {"name": "No", "id": "No"},
-            {"name": "Yes, somewhat confident", "id": "Yes, somewhat confident"},
-            {"name": "Yes, very confident", "id": "Yes, very confident"}
-        ],
-        style_data_conditional=[
-            {
-                'if': {'row_index': 'odd'},
-                'backgroundColor': 'rgb(248, 248, 248)'
-            }
-        ],
-        style_header={
-            'backgroundColor': colors['light_blue'],
-            'fontWeight': 'bold',
-            'color':'white'
-        },
-        style_cell={
-            'whiteSpace': 'normal',
-            'height': 'auto',
-            'overflow': 'hidden',
-            'textOverflow': 'ellipsis',
-            'maxWidth': 0,
-        },
-        style_table={
-            'overflowX': 'auto'  # Enable horizontal scrolling if table exceeds container width
-        },
-    ),
-], style={'overflowX': 'auto'})  # Ensure horizontal scrolling is enabled for the container
+  
+def create_heatmap(df):
+    pivot_df = df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
+    fig = px.imshow(pivot_df,
+                    labels=dict(x="Voting Fairness", y="Trump Approval"),
+                    color_continuous_scale='RdBu_r',  # Blue-Red color scale,
+                    text_auto=True
+                    )
+    
+    fig.update_layout(
+        title='Heatmap of Trump Approval vs. Voting Fairness',
+        xaxis_title='Voting Fairness',
+        yaxis_title='Trump Approval',
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
+    return fig
 
 navbar = dbc.NavbarSimple(
     children=[

@@ -1,7 +1,6 @@
 from dash import Dash, html, dcc, Input, Output
-from components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, table_component
+from components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_heatmap, create_war_likelihood_chart
 from data import df
-
 
 
 def update_donut_chart(age_range,
@@ -45,18 +44,12 @@ def update_stacked_chart_education(age_range,
 
     return create_stacked_chart_education(df_pct)
 
-
-
-def update_table_data(age_range, education, ideology, race):
+def update_heatmap_data(age_range, education, ideology, race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
     filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
     filtered_df = filtered_df[filtered_df['ideology'].isin(ideology)]
     filtered_df = filtered_df[filtered_df['race'].isin(race)]
+    df_subset = filtered_df[["trump_approval", "fairness_voting"]]
 
-    # Pivot the DataFrame to get the counts for each combination of 'trump_approval' and 'fairness_voting'
-    pivot_df = filtered_df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
-    pivot_df.reset_index(inplace=True)
+    return create_heatmap(df_subset)
 
-    # Convert pivot_df to a format suitable for DataTable
-    data = pivot_df.to_dict('records')
-    return data
