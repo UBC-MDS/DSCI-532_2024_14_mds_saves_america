@@ -6,6 +6,7 @@ import altair as alt
 import plotly.express as px
 from dash.dependencies import Input, Output
 from dash import dash_table
+
 # Initialize the app
 app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
