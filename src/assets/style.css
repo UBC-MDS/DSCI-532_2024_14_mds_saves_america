@@ -5,3 +5,11 @@
 .vertical-line-row > .col:last-child {
     border-right: none;
 }
+
+.custom-slider .rc-slider-track {
+    background-color: #ed1c23 !important; /* Custom color for the selected range */
+}
+
+.custom-slider .rc-slider-handle {  
+    border-color: #ffffff !important;
+}
