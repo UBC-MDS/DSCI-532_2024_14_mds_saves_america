@@ -44,6 +44,7 @@ def update_stacked_chart_education(age_range,
 
     return create_stacked_chart_education(df_pct)
 
+
 def update_heatmap_data(age_range, education, ideology, race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
     filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]

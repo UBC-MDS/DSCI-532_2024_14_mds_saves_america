@@ -1,0 +1,7 @@
+.vertical-line-row > .col {
+    border-right: 1px solid white;
+}
+
+.vertical-line-row > .col:last-child {
+    border-right: none;
+}
