@@ -110,7 +110,7 @@ app.layout = html.Div([
             ], style={'margin': '20px'}),  # Add margin to the inner row
             dbc.Row(war_likelihood_chart_component),
         ], md=6),
-
+      
         # Column for "Elections: Donald Trump Focused"
         dbc.Col([
             html.H2("Elections: Donald Trump Focused",
@@ -118,7 +118,7 @@ app.layout = html.Div([
             dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure), justify='center'),  # Center align the graph
             dbc.Row(heatmap_component, justify='center'),  # Center align the heatmap
         ], md=6),
-    ], style={'marginTop': 30, 'marginBottom': 30}),  # Add margin to the main content row
+    ], style={'marginTop': 30, 'marginBottom': 30},className='vertical-line-row'),  # Add margin to the main content row
 ], style={'backgroundColor': colors['light_grey'], 'overflow': 'hidden'})
 
 

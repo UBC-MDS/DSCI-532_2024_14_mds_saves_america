@@ -89,8 +89,7 @@ def create_donut_chart(df):
         showlegend=True,
         annotations=[dict(text='Trump', x=0.5, y=0.5,
                           font_size=20, showarrow=False)],
-        plot_bgcolor=colors['light_grey'],
-
+        plot_bgcolor=colors['light_grey']
 
 
     )
