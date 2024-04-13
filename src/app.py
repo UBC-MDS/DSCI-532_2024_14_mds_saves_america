@@ -153,7 +153,7 @@ app.layout = dbc.Container([
                           figure=war_likelihood_chart),
                 justify='center',
                 # Added space above this row
-                style={'margin': '30px'}
+                style={'margin': '20px'}
             ),
         ], md=6),
 
@@ -164,16 +164,16 @@ app.layout = dbc.Container([
                 dcc.Graph(id='donut-chart', figure=donut_chart_figure),
                 justify='center',  # Center align the graph
                 # Added space below this row
-                style={'margin': '40px'},
+                style={'margin': '55px'},
             ),
             dbc.Row(
                 dcc.Graph(id='heatmap', figure=heat_map),
                 justify='center',  # Center align the heatmap
                 # Added space above this row
-                style={'margin': '30px'}
+                style={'margin': '10px'}
             ),
         ], md=6),
-    ], style={'marginTop': 20}, justify='center', className='vertical-line-row'),
+    ], style={'marginTop': 10}, justify='center', className='vertical-line-row'),
 
 
 
