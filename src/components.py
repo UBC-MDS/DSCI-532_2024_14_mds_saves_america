@@ -48,16 +48,16 @@ def create_stacked_chart_education(df):
                     'Independent': colors['light_blue']}
 
     fig = px.bar(df, x='higher_education', y='percentage', color='political_party',
-                 title='Stacked Bar Chart of Political Party by Highest Education',
-                 labels={'percentage': 'Percentage',
-                         'higher_education': 'Higher Education'},
+                 title='Political Party by Education Level',
+                 labels={'percentage': '',
+                         'higher_education': 'Education Level'},
                  category_orders={'higher_education': sorted(
                      df['higher_education'].unique())},
                  hover_data={'percentage': ':.2%'},
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(title='Percentage', tickformat='%')
+    fig.update_yaxes(visible=False)
     fig.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
