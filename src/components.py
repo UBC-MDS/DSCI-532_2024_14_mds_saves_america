@@ -14,6 +14,7 @@ colors = {'light_blue': '#0d76bd',
           'light_grey': '#d3d3d3'
           }
 
+
 def create_stacked_chart_race(df):
     party_colors = {'Republican': colors['red'],
                     'Democrat': colors['dark_blue'],
@@ -100,9 +101,7 @@ def create_donut_chart(df):
         showlegend=False,
         annotations=[dict(text='Trump', x=0.5, y=0.5,
                           font_size=20, showarrow=False)],
-
         plot_bgcolor=colors['light_grey']
-
 
 
     )
@@ -110,25 +109,32 @@ def create_donut_chart(df):
 
 
 def create_war_likelihood_chart(df):
-    # Define colors for the opinions to match the American flag theme
-    opinion_colors = {'Very Likely': colors['red'],
-                      'Somewhat Likely': colors['white'],
-                      'Not at all likely': colors['dark_blue']}
+    # Check the data type and convert if necessary
+    if df['likelihood_of_war'].dtype == 'int':
+        # Map the numeric values to string categories
+        likelihood_mapping = {
+            2: 'Very Likely',
+            1: 'Somewhat Likely',
+            0: 'Not at all likely'
+        }
+        df['likelihood_of_war'] = df['likelihood_of_war'].map(
+            likelihood_mapping)
+    else:
+        print("Data is already in string format.")
 
-    # Map the numeric values to string categories if they represent categorical data
-    likelihood_mapping = {0: 'Not at all likely',
-                          1: 'Somewhat Likely', 2: 'Very Likely'}
-    df['likelihood_of_war'] = df['likelihood_of_war'].map(likelihood_mapping)
+    # Check for any NaN values that may have been introduced
+    print("NaN values after mapping:", df['likelihood_of_war'].isna().sum())
 
     # Aggregate the data to get the count of responses for each category
     likelihood_counts = df['likelihood_of_war'].value_counts().reset_index()
     likelihood_counts.columns = ['Opinion', 'Count']
 
-    # Sort the dataframe based on the opinion order you want in the chart
-    ordered_opinions = ['Very Likely', 'Somewhat Likely', 'Not at all likely']
-    likelihood_counts['Opinion'] = pd.Categorical(
-        likelihood_counts['Opinion'], categories=ordered_opinions, ordered=True)
-    likelihood_counts = likelihood_counts.sort_values('Opinion')
+    # Define colors for the opinions
+    opinion_colors = {
+        'Very Likely': colors['red'],
+        'Somewhat Likely': colors['white'],
+        'Not at all likely': colors['dark_blue']
+    }
 
     # Create the horizontal bar chart using Plotly Express
     fig = px.bar(likelihood_counts, y='Opinion', x='Count',
@@ -139,6 +145,7 @@ def create_war_likelihood_chart(df):
                  color='Opinion',
                  color_discrete_map=opinion_colors)
 
+    # Update layout for better visualization
     fig.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
@@ -155,13 +162,14 @@ def create_war_likelihood_chart(df):
 
 
 def create_heatmap(df):
-    pivot_df = df.pivot_table(index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
+    pivot_df = df.pivot_table(
+        index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
     fig = px.imshow(pivot_df,
                     labels=dict(x="Voting Fairness", y="Trump Approval"),
                     color_continuous_scale='RdBu_r',  # Blue-Red color scale,
                     text_auto=True
                     )
-    
+
     fig.update_layout(
         title='Heatmap of Trump Approval vs. Voting Fairness',
         xaxis_title='Voting Fairness',
@@ -171,10 +179,13 @@ def create_heatmap(df):
     )
     return fig
 
+
 navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Page 1", href="/page-1", style={'color': colors['light_blue']})),
-        dbc.NavItem(dbc.NavLink("Page 2", href="/page-2", style={'color': colors['light_blue']})),
+        dbc.NavItem(dbc.NavLink("Page 1", href="/page-1",
+                    style={'color': colors['light_blue']})),
+        dbc.NavItem(dbc.NavLink("Page 2", href="/page-2",
+                    style={'color': colors['light_blue']})),
     ],
     color='0660a9',
     dark=True
@@ -182,6 +193,5 @@ navbar = dbc.NavbarSimple(
 
 navbar_brand_style = {
     'color': colors['light_blue'],
-    'fontSize':'24px'
+    'fontSize': '24px'
 }
-

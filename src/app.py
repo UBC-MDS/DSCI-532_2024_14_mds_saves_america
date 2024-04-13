@@ -6,7 +6,8 @@ import altair as alt
 import plotly.express as px
 from dash.dependencies import Input, Output
 from dash import dash_table
-from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data, update_slider_marks
+from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data, update_war_likelihood_chart, update_slider_marks
+
 from dash import Dash
 from dash.dependencies import Input, Output
 
@@ -46,7 +47,6 @@ war_likelihood_chart_component = dcc.Graph(
     id='war-likelihood-chart',
     figure=war_likelihood_chart
 )
-
 heatmap_component = dcc.Graph(
     id='heatmap',
     figure=heat_map
@@ -127,8 +127,7 @@ app.layout = html.Div([
             dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure),
                     justify='center'),  # Center align the graph
             # Center align the heatmap
-            dbc.Row(heatmap_component, justify='center'),
-
+            dbc.Row(heatmap_component, justify='center')
         ], md=6),
     ], style={'marginTop': 30, 'marginBottom': 30}, className='vertical-line-row'),  # Add margin to the main content row
 ], style={'backgroundColor': colors['light_grey'], 'overflow': 'hidden'})
@@ -166,6 +165,14 @@ app.callback(
      Input('ideology-dropdown', 'value'),
      Input('racial-group-dropdown', 'value')]
 )(update_heatmap_data)
+
+app.callback(
+    Output('war-likelihood-chart', 'figure'),
+    [Input('age-slider', 'value'),
+     Input('higher-education-dropdown', 'value'),
+     Input('ideology-dropdown', 'value'),
+     Input('racial-group-dropdown', 'value')]
+)(update_war_likelihood_chart)
 
 app.callback(
     Output('age-slider', 'marks'),
