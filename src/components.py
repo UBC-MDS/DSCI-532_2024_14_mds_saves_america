@@ -136,7 +136,7 @@ def create_war_likelihood_chart(df):
         title={
             'text': 'Perceived Likelihood of War<br><sub>War with China or Russia in 50 Years</sub>',  
             'x': 0.5,
-            'xanchor': 'left'
+            'xanchor': 'right'
         }
     )
     return fig
