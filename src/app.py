@@ -65,7 +65,7 @@ colors = {'light_blue': '#0d76bd',
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.H1("Cards Against Humanity: Future of Democracy and Elections in America",
-                        style={'textAlign': 'center', 'color': colors['dark_blue'], 'fontSize': '60px'}))
+                        style={'textAlign': 'center', 'color': colors['dark_blue'], 'fontSize': '80px'}))
     ]),
     dbc.Row([
         dbc.Col([
@@ -139,38 +139,38 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.H2("General Correlations", style={
-                    'textAlign': 'center',  'color': colors['red'], 'fontSize': '55px'}),
+                    'textAlign': 'center',  'color': colors['red'], 'fontSize': '65px'}),
             dbc.Row([
                 dbc.Col(dcc.Graph(id='stacked-chart-race',
                                   figure=stacked_chart_race), md=6),
                 dbc.Col(dcc.Graph(id='stacked-chart-education',
                                   figure=stacked_chart_education), md=6),
                 # Margin for the inner row containing graphs
-            ], justify='center', style={'margin': '50px'}),
+            ], justify='center', style={'margin': '40px'}),
             dbc.Row(
                 # Assuming war_likelihood_chart_component is defined
                 dcc.Graph(id='war-likelihood-chart',
                           figure=war_likelihood_chart),
                 justify='center',
                 # Added space above this row
-                style={'margin': '50px'}
+                style={'margin': '30px'}
             ),
         ], md=6),
 
         dbc.Col([
             html.H2("Elections: Donald Trump Focused",
-                    style={'textAlign': 'center', 'color': colors['red'], 'fontSize': '55px'}),
+                    style={'textAlign': 'center', 'color': colors['red'], 'fontSize': '65px'}),
             dbc.Row(
                 dcc.Graph(id='donut-chart', figure=donut_chart_figure),
                 justify='center',  # Center align the graph
                 # Added space below this row
-                style={'margin': '50px'},
+                style={'margin': '40px'},
             ),
             dbc.Row(
                 dcc.Graph(id='heatmap', figure=heat_map),
                 justify='center',  # Center align the heatmap
                 # Added space above this row
-                style={'margin': '50px'}
+                style={'margin': '30px'}
             ),
         ], md=6),
     ], style={'marginTop': 20}, justify='center', className='vertical-line-row'),
