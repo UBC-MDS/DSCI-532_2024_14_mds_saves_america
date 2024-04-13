@@ -16,10 +16,12 @@ colors = {'light_blue': '#0d76bd',
 
 
 def create_stacked_chart_race(df):
-    party_colors = {'Republican': colors['red'],
-                    'Democrat': colors['dark_blue'],
-                    'DK/REF': colors['white'],
-                    'Independent': colors['light_blue']}
+    party_colors = {
+        'Republican': colors['red'],
+        'Democrat': colors['dark_blue'],
+        'DK/REF': colors['white'],
+        'Independent': colors['light_blue']
+    }
 
     fig = px.bar(df, x='race', y='percentage', color='political_party',
                  title='Political Party by Race',
@@ -31,10 +33,18 @@ def create_stacked_chart_race(df):
 
     fig.update_yaxes(title='', tickformat='0.1%')
     fig.update_layout(
-        {
-            "paper_bgcolor": colors['light_grey'],
-            "plot_bgcolor": colors['light_grey'],
-        },
+        title_text='Political Party by Race',
+        title_font_size=40,
+        xaxis_title_font=dict(size=30),
+        yaxis_title_font=dict(size=30),
+        legend_title_font_size=20,
+        legend_font_size=20,
+        xaxis_tickfont_size=20,
+        yaxis_tickfont_size=20,
+        height=700,
+        width=750,
+        paper_bgcolor=colors['light_grey'],
+        plot_bgcolor=colors['light_grey'],
         legend_title='Political Party',
         showlegend=False
     )
@@ -43,14 +53,16 @@ def create_stacked_chart_race(df):
 
 
 def create_stacked_chart_education(df):
-    party_colors = {'Republican': colors['red'],
-                    'Democrat': colors['dark_blue'],
-                    'DK/REF': colors['white'],
-                    'Independent': colors['light_blue']}
+    party_colors = {
+        'Republican': colors['red'],
+        'Democrat': colors['dark_blue'],
+        'DK/REF': colors['white'],
+        'Independent': colors['light_blue']
+    }
 
     fig = px.bar(df, x='higher_education', y='percentage', color='political_party',
                  title='Political Party by Education Level',
-                 labels={'percentage': '',
+                 labels={'percentage': 'Percentage',
                          'higher_education': 'Education Level'},
                  category_orders={'higher_education': sorted(
                      df['higher_education'].unique())},
@@ -59,59 +71,64 @@ def create_stacked_chart_education(df):
                  color_discrete_map=party_colors)
 
     fig.update_yaxes(visible=False)
-    fig.update_layout(
-        {
-            "paper_bgcolor": colors['light_grey'],
-            "plot_bgcolor": colors['light_grey'],
-        },
-        legend_title='Political Party',
-    )
 
+    fig.update_layout(
+        title_text='Political Party by Education Level',
+        title_font_size=40,
+        xaxis_title_font=dict(size=30),
+        yaxis_title_font=dict(size=30),
+        legend_title_font_size=20,
+        legend_font_size=20,
+        xaxis_tickfont_size=20,
+        yaxis_tickfont_size=20,
+        height=700,
+        width=750,
+        paper_bgcolor=colors['light_grey'],
+        plot_bgcolor=colors['light_grey'],
+        legend_title='Political Party'
+    )
     return fig
 
 
 def create_donut_chart(df):
-    # Calculate the counts for each category in the 'trump_2020' column
     counts = df['trump_2020'].value_counts().reset_index()
     counts.columns = ['trump_2020', 'counts']
-
-    # Custom colors for different likelihood categories
     custom_colors = {
-        'Very Likely': colors['red'],  
-        'Somewhat Likely': colors['light_blue'],  
-        'Not at all likely': colors['dark_blue'],  
-        'DK/REF': colors['white']  
+        'Very Likely': colors['red'],
+        'Somewhat Likely': colors['light_blue'],
+        'Not at all likely': colors['dark_blue'],
+        'DK/REF': colors['white']
     }
+    category_colors = [custom_colors.get(
+        x, colors['grey']) for x in counts['trump_2020']]
 
-    # Map each category to its custom color
-    category_colors = [custom_colors.get(x, colors['grey']) for x in counts['trump_2020']]
-
-    # Create the pie chart with a hole (donut chart)
     fig_donut = px.pie(counts, values='counts', names='trump_2020', hole=0.4)
-
-    # Update the layout and trace for the donut chart appearance
     fig_donut.update_traces(textinfo='percent+label', pull=[0 for _ in range(len(counts))],
                             marker=dict(colors=category_colors))
     fig_donut.update_layout(
-        {
-            "paper_bgcolor": colors['light_grey'],
-            "plot_bgcolor": colors['light_grey'],
-        },
         title='Likelihood of Donald Trump Reelection in 2020',
         showlegend=False,
         annotations=[dict(text='Trump', x=0.5, y=0.5,
                           font_size=20, showarrow=False)],
+        title_font_size=40,
+        xaxis_title_font=dict(size=30),
+        yaxis_title_font=dict(size=30),
+        legend_title_font_size=20,
+        legend_font_size=20,
+        xaxis_tickfont_size=20,
+        yaxis_tickfont_size=20,
+        height=700,
+        width=1500,
+        paper_bgcolor=colors['light_grey'],
         plot_bgcolor=colors['light_grey']
-
-
     )
+
     return fig_donut
 
 
 def create_war_likelihood_chart(df):
-    # Check the data type and convert if necessary
+    # Ensure data is in the correct format
     if df['likelihood_of_war'].dtype == 'int':
-        # Map the numeric values to string categories
         likelihood_mapping = {
             2: 'Very Likely',
             1: 'Somewhat Likely',
@@ -119,11 +136,6 @@ def create_war_likelihood_chart(df):
         }
         df['likelihood_of_war'] = df['likelihood_of_war'].map(
             likelihood_mapping)
-    else:
-        print("Data is already in string format.")
-
-    # Check for any NaN values that may have been introduced
-    print("NaN values after mapping:", df['likelihood_of_war'].isna().sum())
 
     # Aggregate the data to get the count of responses for each category
     likelihood_counts = df['likelihood_of_war'].value_counts().reset_index()
@@ -137,26 +149,27 @@ def create_war_likelihood_chart(df):
     }
 
     # Create the horizontal bar chart using Plotly Express
-    fig = px.bar(likelihood_counts, y='Opinion', x='Count',
+    fig = px.bar(likelihood_counts, x='Count', y='Opinion', orientation='h',
                  title='Perceived Likelihood of War',
-                 labels={'Count': 'Number of Responses',
-                         'Opinion': ''},
-                 text='Count', orientation='h',
+                 labels={'Count': 'Number of Responses', 'Opinion': ''},
+                 text='Count',
                  color='Opinion',
                  color_discrete_map=opinion_colors)
 
-    # Update layout for better visualization
     fig.update_layout(
-        {
-            "paper_bgcolor": colors['light_grey'],
-            "plot_bgcolor": colors['light_grey'],
-        },
-        showlegend=False,
-        title={
-            'text': 'Perceived Likelihood of War<br><sub>War vs China or Russia in 50 Years</sub>',  
-            'x': 0.5,
-            'xanchor': 'right'
-        }
+        title_text='Perceived Likelihood of War<br><sub>War vs China or Russia in 50 Years</sub>',
+        title_font_size=40,
+        xaxis_title_font=dict(size=30),
+        yaxis_title_font=dict(size=30),
+        legend_title_font_size=20,
+        legend_font_size=20,
+        xaxis_tickfont_size=20,
+        yaxis_tickfont_size=20,
+        height=800,
+        width=1500,
+        paper_bgcolor=colors['light_grey'],
+        plot_bgcolor=colors['light_grey'],
+        showlegend=False
     )
     return fig
 
@@ -166,16 +179,22 @@ def create_heatmap(df):
         index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
     fig = px.imshow(pivot_df,
                     labels=dict(x="Voting Fairness", y="Trump Approval"),
-                    color_continuous_scale='RdBu_r',  # Blue-Red color scale,
-                    text_auto=True
-                    )
+                    color_continuous_scale='RdBu_r',
+                    text_auto=True)
 
     fig.update_layout(
         title='Heatmap of Trump Approval vs. Voting Fairness',
-        xaxis_title='Voting Fairness',
-        yaxis_title='Trump Approval',
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)'
+        title_font_size=40,
+        xaxis_title_font=dict(size=30),
+        yaxis_title_font=dict(size=30),
+        legend_title_font_size=20,
+        legend_font_size=20,
+        xaxis_tickfont_size=20,
+        yaxis_tickfont_size=20,
+        height=800,
+        width=1500,
+        paper_bgcolor=colors['light_grey'],
+        plot_bgcolor=colors['light_grey']
     )
     return fig
 
