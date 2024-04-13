@@ -21,21 +21,20 @@ def create_stacked_chart_race(df):
                     'Independent': colors['light_blue']}
 
     fig = px.bar(df, x='race', y='percentage', color='political_party',
-                 title='Political Party by Race',
-                 labels={'percentage': '', 'race': 'Race'},
+                 title='Stacked Bar Chart of Political Party by Race',
+                 labels={'percentage': 'Percentage', 'race': 'Race'},
                  category_orders={'race': sorted(df['race'].unique())},
-                 hover_data={'percentage': ':.1%'},
+                 hover_data={'percentage': ':.2%'},
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(title='', tickformat='0.1%')
+    fig.update_yaxes(title='Percentage', tickformat='%')
     fig.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
             "plot_bgcolor": colors['light_grey'],
         },
         legend_title='Political Party',
-        showlegend=False
     )
 
     return fig
