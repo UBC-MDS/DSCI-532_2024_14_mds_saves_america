@@ -77,8 +77,8 @@ def create_donut_chart(df):
     custom_colors = {
         'Very Likely': colors['red'],  
         'Somewhat Likely': colors['light_blue'],  
-        'Very Unlikely': colors['dark_blue'],  
-        'DK': colors['white']  
+        'Not at all likely': colors['dark_blue'],  
+        'DK/REF': colors['white']  
     }
 
     # Map each category to its custom color
