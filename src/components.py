@@ -81,12 +81,15 @@ def create_donut_chart(df):
         'DK': colors['white']  
     }
 
+    # Map each category to its custom color
+    category_colors = [custom_colors.get(x, colors['grey']) for x in counts['trump_2020']]
+
     # Create the pie chart with a hole (donut chart)
     fig_donut = px.pie(counts, values='counts', names='trump_2020', hole=0.4)
 
     # Update the layout and trace for the donut chart appearance
     fig_donut.update_traces(textinfo='percent+label', pull=[0 for _ in range(len(counts))],
-                            marker=dict(colors=list(colors.values())[:len(df['trump_2020'].unique())]))
+                            marker=dict(colors=category_colors))
     fig_donut.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
