@@ -134,7 +134,7 @@ def create_war_likelihood_chart(df):
     fig = px.bar(likelihood_counts, y='Opinion', x='Count',
                  title='Perceived Likelihood of War',
                  labels={'Count': 'Number of Responses',
-                         'Opinion': 'Opinion on Likelihood of War'},
+                         'Opinion': ''},
                  text='Count', orientation='h',
                  color='Opinion',
                  color_discrete_map=opinion_colors)
@@ -143,6 +143,12 @@ def create_war_likelihood_chart(df):
         {
             "paper_bgcolor": colors['light_grey'],
             "plot_bgcolor": colors['light_grey'],
+        },
+        showlegend=False,
+        title={
+            'text': 'Perceived Likelihood of War<br><sub>War vs China or Russia in 50 Years</sub>',  
+            'x': 0.5,
+            'xanchor': 'right'
         }
     )
     return fig
