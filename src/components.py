@@ -22,20 +22,21 @@ def create_stacked_chart_race(df):
                     'Independent': colors['light_blue']}
 
     fig = px.bar(df, x='race', y='percentage', color='political_party',
-                 title='Stacked Bar Chart of Political Party by Race',
-                 labels={'percentage': 'Percentage', 'race': 'Race'},
+                 title='Political Party by Race',
+                 labels={'percentage': '', 'race': 'Race'},
                  category_orders={'race': sorted(df['race'].unique())},
-                 hover_data={'percentage': ':.2%'},
+                 hover_data={'percentage': ':.1%'},
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(title='Percentage', tickformat='%')
+    fig.update_yaxes(title='', tickformat='0.1%')
     fig.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
             "plot_bgcolor": colors['light_grey'],
         },
         legend_title='Political Party',
+        showlegend=False
     )
 
     return fig
@@ -48,16 +49,16 @@ def create_stacked_chart_education(df):
                     'Independent': colors['light_blue']}
 
     fig = px.bar(df, x='higher_education', y='percentage', color='political_party',
-                 title='Stacked Bar Chart of Political Party by Highest Education',
-                 labels={'percentage': 'Percentage',
-                         'higher_education': 'Higher Education'},
+                 title='Political Party by Education Level',
+                 labels={'percentage': '',
+                         'higher_education': 'Education Level'},
                  category_orders={'higher_education': sorted(
                      df['higher_education'].unique())},
                  hover_data={'percentage': ':.2%'},
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(title='Percentage', tickformat='%')
+    fig.update_yaxes(visible=False)
     fig.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
@@ -74,19 +75,30 @@ def create_donut_chart(df):
     counts = df['trump_2020'].value_counts().reset_index()
     counts.columns = ['trump_2020', 'counts']
 
+    # Custom colors for different likelihood categories
+    custom_colors = {
+        'Very Likely': colors['red'],  
+        'Somewhat Likely': colors['light_blue'],  
+        'Not at all likely': colors['dark_blue'],  
+        'DK/REF': colors['white']  
+    }
+
+    # Map each category to its custom color
+    category_colors = [custom_colors.get(x, colors['grey']) for x in counts['trump_2020']]
+
     # Create the pie chart with a hole (donut chart)
     fig_donut = px.pie(counts, values='counts', names='trump_2020', hole=0.4)
 
     # Update the layout and trace for the donut chart appearance
-    fig_donut.update_traces(textinfo='percent+label', pull=[0.1 if i == 0 else 0 for i in range(len(counts))],
-                            marker=dict(colors=list(colors.values())[:len(df['trump_2020'].unique())]))
+    fig_donut.update_traces(textinfo='percent+label', pull=[0 for _ in range(len(counts))],
+                            marker=dict(colors=category_colors))
     fig_donut.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
             "plot_bgcolor": colors['light_grey'],
         },
         title='Likelihood of Donald Trump Reelection in 2020',
-        showlegend=True,
+        showlegend=False,
         annotations=[dict(text='Trump', x=0.5, y=0.5,
                           font_size=20, showarrow=False)],
         plot_bgcolor=colors['light_grey']
@@ -128,15 +140,23 @@ def create_war_likelihood_chart(df):
     fig = px.bar(likelihood_counts, y='Opinion', x='Count',
                  title='Perceived Likelihood of War',
                  labels={'Count': 'Number of Responses',
-                         'Opinion': 'Opinion on Likelihood of War'},
+                         'Opinion': ''},
                  text='Count', orientation='h',
                  color='Opinion',
                  color_discrete_map=opinion_colors)
 
     # Update layout for better visualization
     fig.update_layout(
-        paper_bgcolor=colors['light_grey'],
-        plot_bgcolor=colors['light_grey']
+        {
+            "paper_bgcolor": colors['light_grey'],
+            "plot_bgcolor": colors['light_grey'],
+        },
+        showlegend=False,
+        title={
+            'text': 'Perceived Likelihood of War<br><sub>War vs China or Russia in 50 Years</sub>',  
+            'x': 0.5,
+            'xanchor': 'right'
+        }
     )
     return fig
 
