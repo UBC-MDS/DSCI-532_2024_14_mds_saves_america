@@ -20,6 +20,7 @@ app = Dash(__name__,
            external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
 server = app.server
 
+
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
 stacked_chart_race = create_stacked_chart_race(df_pct)
@@ -61,74 +62,122 @@ colors = {'light_blue': '#0d76bd',
           }
 
 
-app.layout = html.Div([
-    html.Link(
-        href='https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css',
-        rel='stylesheet'
-    ),
-    # Header Row with title and filters
+app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.H1("Cards Against Humanity: Future of Democracy and Elections in America",
-                        style={'textAlign': 'center', 'color': '#0660a9', 'fontSize': '24px'}))
+                        style={'textAlign': 'center', 'color': colors['dark_blue'], 'fontSize': '60px'}))
     ]),
-
-    # Filters row
-    
-
     dbc.Row([
-        dbc.Col(html.Label("Age Slider", htmlFor="age-slider",
-                           style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.RangeSlider(
-            id='age-slider',
-            min=min_age,
-            max=max_age,
-            step=1,
-            value=[min_age, max_age],
-            marks={i: {'label': str(i), 'style': {'color': '#fff'}}
-                   for i in range(min_age, max_age + 1, 10)},
-            className='custom-slider'
-        ), width=2),
-        dbc.Col(html.Label("Racial Group", htmlFor="racial-group-dropdown",
-                           style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in race_],
-                             value=['White', 'Black'], id="racial-group-dropdown", multi=True), width=2),
-          # Vertical line
-        dbc.Col(html.Label("Political Ideology", htmlFor="ideology-dropdown",
-                           style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in ideology_],
-                             value=['Conservative', 'Liberal'], id="ideology-dropdown", multi=True), width=2),
-        dbc.Col(html.Label("Education",
-                           htmlFor="higher-education-dropdown", style={'color': colors['white']}), width=1),
-        dbc.Col(dcc.Dropdown(options=[{'label': range_val, 'value': range_val} for range_val in higher_education_],
-                             value=['College degree', 'Some college'], id="higher-education-dropdown", multi=True),
-                width=2),
-    ], style={'backgroundColor': colors['light_blue'], 'padding': '15px','justify':'center'}),
-
-    # Main content row with two columns for the two main sections
-    dbc.Row([
-        # Column for "General Correlations" with both charts side by side
         dbc.Col([
-            html.H2("General Correlations", style={'textAlign': 'center'}),
+            dbc.Card([
+                dbc.CardBody([
+                    html.Label("Age Slider", htmlFor="age-slider",
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                    dcc.RangeSlider(
+                        id='age-slider',
+                        min=min_age,
+                        max=max_age,
+                        step=1,
+                        value=[min_age, max_age],
+                        marks={i: {'label': str(i), 'style': {'color': colors['white']}}
+                               for i in range(min_age, max_age + 1, 10)},
+                        className='custom-slider'
+                    )
+                ])
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+        ], width=3),
+
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.Label("Racial Group", htmlFor="racial-group-dropdown",
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                    dcc.Dropdown(
+                        options=[{'label': range_val, 'value': range_val}
+                                 for range_val in race_],
+                        value=['White', 'Black'],
+                        id="racial-group-dropdown",
+                        multi=True,
+                    )
+                ])
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+        ], width=3),
+
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.Label("Political Ideology", htmlFor="ideology-dropdown",
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                    dcc.Dropdown(
+                        options=[{'label': range_val, 'value': range_val}
+                                 for range_val in ideology_],
+                        value=['Conservative', 'Liberal'],
+                        id="ideology-dropdown",
+                        multi=True
+                    )
+                ])
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+        ], width=3),
+
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.Label("Education", htmlFor="higher-education-dropdown",
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                    dcc.Dropdown(
+                        options=[{'label': range_val, 'value': range_val}
+                                 for range_val in higher_education_],
+                        value=['College degree', 'Some college'],
+                        id="higher-education-dropdown",
+                        multi=True
+                    )
+                ])
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+        ], width=3)
+    ], justify='around'),  # Space elements evenly across the row
+
+    dbc.Row([
+        dbc.Col([
+            html.H2("General Correlations", style={
+                    'textAlign': 'center',  'color': colors['red'], 'fontSize': '55px'}),
             dbc.Row([
                 dbc.Col(dcc.Graph(id='stacked-chart-race',
                                   figure=stacked_chart_race), md=6),
                 dbc.Col(dcc.Graph(id='stacked-chart-education',
                                   figure=stacked_chart_education), md=6),
-            ], style={'margin': '20px'}),  # Add margin to the inner row
-            dbc.Row(war_likelihood_chart_component),
+                # Margin for the inner row containing graphs
+            ], justify='center', style={'margin': '50px'}),
+            dbc.Row(
+                # Assuming war_likelihood_chart_component is defined
+                dcc.Graph(id='war-likelihood-chart',
+                          figure=war_likelihood_chart),
+                justify='center',
+                # Added space above this row
+                style={'margin': '50px'}
+            ),
         ], md=6),
 
-        # Column for "Elections: Donald Trump Focused"
         dbc.Col([
             html.H2("Elections: Donald Trump Focused",
-                    style={'textAlign': 'center'}),
-            dbc.Row(dcc.Graph(id='donut-chart', figure=donut_chart_figure),
-                    justify='center'),  # Center align the graph
-            # Center align the heatmap
-            dbc.Row(heatmap_component, justify='center')
+                    style={'textAlign': 'center', 'color': colors['red'], 'fontSize': '55px'}),
+            dbc.Row(
+                dcc.Graph(id='donut-chart', figure=donut_chart_figure),
+                justify='center',  # Center align the graph
+                # Added space below this row
+                style={'margin': '50px'},
+            ),
+            dbc.Row(
+                dcc.Graph(id='heatmap', figure=heat_map),
+                justify='center',  # Center align the heatmap
+                # Added space above this row
+                style={'margin': '50px'}
+            ),
         ], md=6),
-    ], style={'marginTop': 30, 'marginBottom': 30}, className='vertical-line-row'),  # Add margin to the main content row
-], style={'backgroundColor': colors['light_grey'], 'overflow': 'hidden'})
+    ], style={'marginTop': 20}, justify='center', className='vertical-line-row'),
+
+
+
+], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'})
 
 
 # Link the callbacks
