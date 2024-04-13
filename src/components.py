@@ -74,19 +74,30 @@ def create_donut_chart(df):
     counts = df['trump_2020'].value_counts().reset_index()
     counts.columns = ['trump_2020', 'counts']
 
+    # Custom colors for different likelihood categories
+    custom_colors = {
+        'Very Likely': colors['red'],  
+        'Somewhat Likely': colors['light_blue'],  
+        'Not at all likely': colors['dark_blue'],  
+        'DK/REF': colors['white']  
+    }
+
+    # Map each category to its custom color
+    category_colors = [custom_colors.get(x, colors['grey']) for x in counts['trump_2020']]
+
     # Create the pie chart with a hole (donut chart)
     fig_donut = px.pie(counts, values='counts', names='trump_2020', hole=0.4)
 
     # Update the layout and trace for the donut chart appearance
-    fig_donut.update_traces(textinfo='percent+label', pull=[0.1 if i == 0 else 0 for i in range(len(counts))],
-                            marker=dict(colors=list(colors.values())[:len(df['trump_2020'].unique())]))
+    fig_donut.update_traces(textinfo='percent+label', pull=[0 for _ in range(len(counts))],
+                            marker=dict(colors=category_colors))
     fig_donut.update_layout(
         {
             "paper_bgcolor": colors['light_grey'],
             "plot_bgcolor": colors['light_grey'],
         },
         title='Likelihood of Donald Trump Reelection in 2020',
-        showlegend=True,
+        showlegend=False,
         annotations=[dict(text='Trump', x=0.5, y=0.5,
                           font_size=20, showarrow=False)],
 
