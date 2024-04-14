@@ -46,7 +46,7 @@ Get a glimpse of the dashboard's capabilities and user experience with our demo 
 
 ![Demo GIF](img/demo.gif)
 
-For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](https://dsci-532-2024-14-mds-saves-america-1.onrender.com/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
+For a full exploration and to discover all the features our dashboard has to offer, visit our deployed dashboard through the link provided [here](https://dsci-532-2024-14-mds-saves-america-10.onrender.com/). Dive into the data, play with the filters, and see the visualizations respond in real-time.
 
 ## Support
 If you encounter any issues or have any questions about using our dashboard, please open an issue on GitHub.
