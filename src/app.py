@@ -146,7 +146,7 @@ app.layout = dbc.Container([
                 dbc.Col(dcc.Graph(id='stacked-chart-education',
                                   figure=stacked_chart_education), md=6),
                 # Margin for the inner row containing graphs
-            ], justify='center', style={'margin': '40px'}),
+            ], justify='center', style={'margin': '15px'}),
             dbc.Row(
                 # Assuming war_likelihood_chart_component is defined
                 dcc.Graph(id='war-likelihood-chart',
@@ -164,7 +164,7 @@ app.layout = dbc.Container([
                 dcc.Graph(id='donut-chart', figure=donut_chart_figure),
                 justify='center',  # Center align the graph
                 # Added space below this row
-                style={'margin': '55px'},
+                style={'margin': '30px'},
             ),
             dbc.Row(
                 dcc.Graph(id='heatmap', figure=heat_map),
