@@ -1,5 +1,5 @@
 import pandas as pd
-import altair as alt 
+import altair as alt
 
 df = pd.read_csv("data/processed/data_cleaned.csv")
 
@@ -15,5 +15,3 @@ df_pct = df.groupby(['race', 'political_party']).size().unstack(fill_value=0).ap
     lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
 df_pct_education = df.groupby(['higher_education', 'political_party']).size().unstack(
     fill_value=0).apply(lambda x: x / x.sum(), axis=1).stack().reset_index(name='percentage')
-
-
