@@ -15,11 +15,11 @@
 }
 
 .Select-menu-outer {
-    font-size: 30px; /* Set the font size as desired */
+    font-size: 15px; /* Set the font size as desired */
 }
 
 .Select-control {
-    font-size: 30px; /* Set the font size for the selected items and input control */
+    font-size: 15px; /* Set the font size for the selected items and input control */
 }
 
 .vertical-line-row > .col-md-6:first-child {

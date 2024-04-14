@@ -65,14 +65,14 @@ colors = {'light_blue': '#0d76bd',
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.H1("Cards Against Humanity: Future of Democracy and Elections in America",
-                        style={'textAlign': 'center', 'color': colors['dark_blue'], 'fontSize': '80px'}))
+                        style={'textAlign': 'center', 'color': colors['dark_blue'], 'fontSize': '40px'}))
     ]),
     dbc.Row([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
                     html.Label("Age Slider", htmlFor="age-slider",
-                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '20px'}),
                     dcc.RangeSlider(
                         id='age-slider',
                         min=min_age,
@@ -84,14 +84,14 @@ app.layout = dbc.Container([
                         className='custom-slider'
                     )
                 ])
-            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
         ], width=3),
 
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
                     html.Label("Racial Group", htmlFor="racial-group-dropdown",
-                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '20px'}),
                     dcc.Dropdown(
                         options=[{'label': range_val, 'value': range_val}
                                  for range_val in race_],
@@ -100,14 +100,14 @@ app.layout = dbc.Container([
                         multi=True,
                     )
                 ])
-            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
         ], width=3),
 
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
                     html.Label("Political Ideology", htmlFor="ideology-dropdown",
-                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '20px'}),
                     dcc.Dropdown(
                         options=[{'label': range_val, 'value': range_val}
                                  for range_val in ideology_],
@@ -116,14 +116,14 @@ app.layout = dbc.Container([
                         multi=True
                     )
                 ])
-            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
         ], width=3),
 
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
                     html.Label("Education", htmlFor="higher-education-dropdown",
-                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '30px'}),
+                               style={'color': colors['white'], 'fontWeight': 'bold', 'fontSize': '20px'}),
                     dcc.Dropdown(
                         options=[{'label': range_val, 'value': range_val}
                                  for range_val in higher_education_],
@@ -132,48 +132,48 @@ app.layout = dbc.Container([
                         multi=True
                     )
                 ])
-            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '15px', 'boxShadow': '2px 2px 10px #888888'})
+            ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
         ], width=3)
     ], justify='around'),  # Space elements evenly across the row
 
     dbc.Row([
         dbc.Col([
             html.H2("General Correlations", style={
-                    'textAlign': 'center',  'color': colors['red'], 'fontSize': '65px'}),
+                    'textAlign': 'center',  'color': colors['red'], 'fontSize': '35px'}),
             dbc.Row([
                 dbc.Col(dcc.Graph(id='stacked-chart-race',
                                   figure=stacked_chart_race), md=6),
                 dbc.Col(dcc.Graph(id='stacked-chart-education',
                                   figure=stacked_chart_education), md=6),
                 # Margin for the inner row containing graphs
-            ], justify='center', style={'margin': '15px'}),
+            ], justify='center', style={'margin': '0px'}),
             dbc.Row(
                 # Assuming war_likelihood_chart_component is defined
                 dcc.Graph(id='war-likelihood-chart',
                           figure=war_likelihood_chart),
                 justify='center',
                 # Added space above this row
-                style={'margin': '20px'}
+                style={'margin': '0px'}
             ),
         ], md=6),
 
         dbc.Col([
             html.H2("Elections: Donald Trump Focused",
-                    style={'textAlign': 'center', 'color': colors['red'], 'fontSize': '65px'}),
+                    style={'textAlign': 'center', 'color': colors['red'], 'fontSize': '35px'}),
             dbc.Row(
                 dcc.Graph(id='donut-chart', figure=donut_chart_figure),
                 justify='center',  # Center align the graph
                 # Added space below this row
-                style={'margin': '30px'},
+                style={'margin': '25px'},
             ),
             dbc.Row(
                 dcc.Graph(id='heatmap', figure=heat_map),
                 justify='center',  # Center align the heatmap
                 # Added space above this row
-                style={'margin': '10px'}
+                style={'margin': '0px'}
             ),
         ], md=6),
-    ], style={'marginTop': 10}, justify='center', className='vertical-line-row'),
+    ], style={'marginTop': 5}, justify='center', className='vertical-line-row'),
 
 
 
