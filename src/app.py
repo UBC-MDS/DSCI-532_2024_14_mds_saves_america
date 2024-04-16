@@ -1,4 +1,3 @@
-
 from PIL import Image
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
@@ -118,7 +117,7 @@ navbar = dbc.Navbar(
     ],
     color=colors['light_grey'],
     dark=True,
-    style={'height': '50px', 'paddingLeft': '10px', 'paddingRight': '0px'}
+    style={'height': '40px', 'paddingLeft': '10px', 'paddingRight': '0px'}
 )
 
 
@@ -126,7 +125,7 @@ navbar_brand_style = {
     'color': colors['dark_blue'],
     'fontSize': '24px',
     'fontWeight': 'bold',
-    'justify': 'left',
+    'justify': 'center',
     'padding-top': '0px'
 }
 navbar.brand_style = navbar_brand_style
@@ -135,7 +134,11 @@ navbar.brand_style = navbar_brand_style
 def main_page_layout():
     return html.Div([
         dbc.Container([
-            navbar,
+            dbc.Row([
+                dbc.Col([
+                    navbar
+                ], style={'marginBottom': '5px'})
+            ]),
             dbc.Row([
                 dbc.Col([
                     dbc.Card([
@@ -153,7 +156,7 @@ def main_page_layout():
                                 className='custom-slider'
                             )
                         ])
-                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
+                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888', 'marginBottom': '8px'})
                 ], width=3),
 
                 dbc.Col([
@@ -169,7 +172,7 @@ def main_page_layout():
                                 multi=True,
                             )
                         ])
-                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
+                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888', 'marginBottom': '8px'})
                 ], width=3),
 
                 dbc.Col([
@@ -185,7 +188,7 @@ def main_page_layout():
                                 multi=True
                             )
                         ])
-                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
+                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888', 'marginBottom': '8px'})
                 ], width=3),
 
                 dbc.Col([
@@ -201,9 +204,9 @@ def main_page_layout():
                                 multi=True
                             )
                         ])
-                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888'})
+                    ], style={'backgroundColor': colors['dark_blue'], 'borderRadius': '10px', 'boxShadow': '2px 2px 10px #888888', 'marginBottom': '8px'})
                 ], width=3)
-            ], justify='around'),  # Space elements evenly across the row
+            ], justify='around'),
 
             dbc.Row([
                 dbc.Col([
@@ -213,10 +216,12 @@ def main_page_layout():
                         dbc.CardBody([
                             dbc.Row([
                                 dbc.Col(dcc.Graph(id='stacked-chart-race',
-                                        figure=stacked_chart_race), md=6),
+                                                  figure=stacked_chart_race), md=6),
                                 dbc.Col(dcc.Graph(id='stacked-chart-education',
-                                        figure=stacked_chart_education), md=6)
-                            ], class_name='align-items-stretch')
+                                                  figure=stacked_chart_education), md=6)
+                            ], class_name='align-items-stretch'),
+                            dcc.Graph(id='war-likelihood-chart',
+                                      figure=war_likelihood_chart)
                         ])
                     ], style={'backgroundColor': colors['light_grey'], 'borderRadius': '10px'})
                 ], md=6),
@@ -226,38 +231,19 @@ def main_page_layout():
                         dbc.CardHeader("Elections: Donald Trump Focused", style={
                                        'textAlign': 'center', 'color': colors['red'], 'fontSize': '25px'}),
                         dbc.CardBody([
-                            dcc.Graph(id='heatmap', figure=heat_map)
-                        ])
-                    ], style={'backgroundColor': colors['light_grey'], 'borderRadius': '10px'})
-                ], md=6)
-            ], justify='center', class_name='align-items-stretch'),  # Row for Graphs 1
-
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardBody([
-                            dcc.Graph(id='war-likelihood-chart',
-                                      figure=war_likelihood_chart)
-                        ])
-                    ], style={'backgroundColor': colors['light_grey'], 'borderRadius': '10px'})
-                ], md=6),
-
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardBody([
+                            dcc.Graph(id='heatmap', figure=heat_map),
                             dcc.Graph(id='donut-chart',
                                       figure=donut_chart_figure)
                         ])
+
                     ], style={'backgroundColor': colors['light_grey'], 'borderRadius': '10px'})
                 ], md=6)
-            ], justify='center', class_name='align-items-stretch'),  # Row for Graphs 2
-
+            ], justify='center', class_name='align-items-stretch')
         ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'})
     ])
 
 
 # ABOUT US MEMBERS
-
 member_card_arturo = dbc.Card([
     dbc.CardImg(src="member_image.jpg", top=True, style={
                 'height': '200px', 'objectFit': 'cover'}),
@@ -304,7 +290,6 @@ about_us_layout = html.Div([
                         'color': colors['light_blue'], 'fontSize': '20px', 'fontWeight': 'light'})),
         ],
         brand=html.Div([
-            # Adds space between the logo and the title
             html.Img(src=pil_image, height="40px",
                      style={'marginRight': '15px'}),
             "Cards Against Humanity: Future of Democracy and Elections in America"
@@ -315,7 +300,6 @@ about_us_layout = html.Div([
         style=navbar_brand_style
     ),
     dbc.Container([
-        # Adds top margin to the header
         html.H1("About Us", style={'marginTop': '20px'}),
         dbc.Row([
             dbc.Col(member_card_arturo, width=6),
