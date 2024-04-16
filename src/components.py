@@ -157,7 +157,7 @@ def create_war_likelihood_chart(df):
                  color_discrete_map=opinion_colors)
 
     fig.update_layout(
-        title_text='Perceived Likelihood of War<br><sub>War vs China or Russia in 50 Years</sub>',
+        title_text='Perceived Likelihood of War<br><sub>Likelihood of War in the next 50 years</sub>',
         title_font_size=20,
         xaxis_title_font=dict(size=15),
         yaxis_title_font=dict(size=15),
