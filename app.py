@@ -96,6 +96,7 @@ navbar_brand_style = {
 }
 
 
+
 navbar.brand_style = navbar_brand_style
 
 
