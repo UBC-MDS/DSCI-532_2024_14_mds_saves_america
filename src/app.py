@@ -150,7 +150,7 @@ def main_page_layout():
                                 min=min_age,
                                 max=max_age,
                                 step=1,
-                                value=[min_age, max_age],
+                                value=[25, 65],
                                 marks={i: {'label': str(i), 'style': {'color': colors['white']}}
                                        for i in range(min_age, max_age + 1, 10)},
                                 className='custom-slider'
