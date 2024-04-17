@@ -169,6 +169,7 @@ def main_page_layout():
                                          for range_val in race_],
                                 value=['White', 'Black'],
                                 id="racial-group-dropdown",
+                                placeholder="Select an option",
                                 multi=True,
                             )
                         ])
@@ -184,6 +185,7 @@ def main_page_layout():
                                 options=[{'label': range_val, 'value': range_val}
                                          for range_val in ideology_],
                                 value=['Conservative', 'Liberal'],
+                                placeholder="Select an option",
                                 id="ideology-dropdown",
                                 multi=True
                             )
@@ -200,6 +202,7 @@ def main_page_layout():
                                 options=[{'label': range_val, 'value': range_val}
                                          for range_val in higher_education_],
                                 value=['College degree', 'Some college'],
+                                placeholder="Select an option",
                                 id="higher-education-dropdown",
                                 multi=True
                             )
