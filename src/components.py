@@ -41,7 +41,7 @@ def create_stacked_chart_race(df):
         legend_font_size=10,
         xaxis_tickfont_size=10,
         yaxis_tickfont_size=10,
-        height=370,
+        height=380,
         width=350,
         paper_bgcolor=colors['light_grey'],
         plot_bgcolor=colors['light_grey'],
@@ -81,7 +81,7 @@ def create_stacked_chart_education(df):
         legend_font_size=10,
         xaxis_tickfont_size=10,
         yaxis_tickfont_size=10,
-        height=370,
+        height=380,
         width=350,
         paper_bgcolor=colors['light_grey'],
         plot_bgcolor=colors['light_grey'],
@@ -117,8 +117,8 @@ def create_donut_chart(df):
         legend_font_size=10,
         xaxis_tickfont_size=10,
         yaxis_tickfont_size=10,
-        height=330,
-        width=800,
+        height=340,
+        width=750,
         paper_bgcolor=colors['light_grey'],
         plot_bgcolor=colors['light_grey']
     )
@@ -157,7 +157,7 @@ def create_war_likelihood_chart(df):
                  color_discrete_map=opinion_colors)
 
     fig.update_layout(
-        title_text='Perceived Likelihood of War<br><sub>War vs China or Russia in 50 Years</sub>',
+        title_text='Perceived Likelihood of War<br><sub>Likelihood of War in the next 50 years</sub>',
         title_font_size=20,
         xaxis_title_font=dict(size=15),
         yaxis_title_font=dict(size=15),
@@ -166,7 +166,7 @@ def create_war_likelihood_chart(df):
         xaxis_tickfont_size=10,
         yaxis_tickfont_size=10,
         height=340,
-        width=800,
+        width=700,
         paper_bgcolor=colors['light_grey'],
         plot_bgcolor=colors['light_grey'],
         showlegend=False
@@ -191,8 +191,8 @@ def create_heatmap(df):
         legend_font_size=10,
         xaxis_tickfont_size=10,
         yaxis_tickfont_size=10,
-        height=360,
-        width=800,
+        height=380,
+        width=750,
         paper_bgcolor=colors['light_grey'],
         plot_bgcolor=colors['light_grey']
     )
