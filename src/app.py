@@ -7,13 +7,13 @@ import altair as alt
 import plotly.express as px
 from dash.dependencies import Input, Output
 from dash import dash_table
-from src.callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data, update_war_likelihood_chart, update_slider_marks
+from callbacks import update_donut_chart, update_stacked_chart_race, update_stacked_chart_education, update_heatmap_data, update_war_likelihood_chart, update_slider_marks
 
 from dash import Dash
 from dash.dependencies import Input, Output
 
-from src.data import df, df_pct, df_pct_education, min_age, max_age, race_, ideology_, higher_education_
-from src.components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, create_heatmap
+from data import df, df_pct, df_pct_education, min_age, max_age, race_, ideology_, higher_education_
+from components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, create_heatmap
 
 
 # Initialize the app
@@ -39,7 +39,7 @@ Eager to apply data science skillsets and maximize organizational efficiency & e
 """
 
 
-pil_image = Image.open("../img/logo.png")
+pil_image = Image.open("img/logo.png")
 
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
