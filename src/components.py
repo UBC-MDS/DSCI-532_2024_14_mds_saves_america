@@ -35,7 +35,7 @@ def create_stacked_chart_race(df):
     fig.update_layout(
         title_text='Political Party by Race',
         title_font_size=20,
-        xaxis_title_font=dict(size=15),
+        xaxis_title='',
         yaxis_title_font=dict(size=15),
         legend_title_font_size=10,
         legend_font_size=10,
@@ -75,7 +75,7 @@ def create_stacked_chart_education(df):
     fig.update_layout(
         title_text='Political Party by Education Level',
         title_font_size=20,
-        xaxis_title_font=dict(size=15),
+        xaxis_title='',
         yaxis_title_font=dict(size=15),
         legend_title_font_size=10,
         legend_font_size=10,
