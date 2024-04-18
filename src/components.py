@@ -31,11 +31,11 @@ def create_stacked_chart_race(df):
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(title='', tickformat='0.1%')
+    fig.update_yaxes(title='', tickformat='0.0%')
     fig.update_layout(
         title_text='Political Party by Race',
         title_font_size=20,
-        xaxis_title_font=dict(size=15),
+        xaxis_title='',
         yaxis_title_font=dict(size=15),
         legend_title_font_size=10,
         legend_font_size=10,
@@ -71,12 +71,17 @@ def create_stacked_chart_education(df):
                  color_discrete_map=party_colors)
 
     fig.update_yaxes(visible=True, tickformat=',.0%')
+    fig.update_traces(selector=dict(type='bar'), 
+                      showlegend=True,
+                      legendgroup='political_party',
+                      hovertemplate=None)
+
 
     fig.update_layout(
         title_text='Political Party by Education Level',
         title_font_size=20,
-        xaxis_title_font=dict(size=15),
         yaxis_title='',
+        xaxis_title='',
         legend_title_font_size=10,
         legend_font_size=10,
         xaxis_tickfont_size=10,
@@ -87,6 +92,9 @@ def create_stacked_chart_education(df):
         plot_bgcolor=colors['light_grey'],
         legend_title='Political Party'
     )
+
+    fig.update_layout(legend_itemclick=False, legend_itemdoubleclick=False)
+    
     return fig
 
 
@@ -128,14 +136,15 @@ def create_donut_chart(df):
 
 def create_war_likelihood_chart(df):
     # Ensure data is in the correct format
-    if df['likelihood_of_war'].dtype == 'int':
+    if df['likelihood_of_war'].dtype != object:
         likelihood_mapping = {
-            2: 'Very Likely',
-            1: 'Somewhat Likely',
-            0: 'Not at all likely'
-        }
+        2: 'Very Likely',
+        1: 'Somewhat Likely',
+        0: 'Not at all likely'
+    }
         df['likelihood_of_war'] = df['likelihood_of_war'].map(
             likelihood_mapping)
+  
 
     # Aggregate the data to get the count of responses for each category
     likelihood_counts = df['likelihood_of_war'].value_counts().reset_index()
@@ -176,14 +185,14 @@ def create_war_likelihood_chart(df):
 
 def create_heatmap(df):
     pivot_df = df.pivot_table(
-        index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
+        index='fairness_voting', columns='fairness_voting', aggfunc='size', fill_value=0)
     fig = px.imshow(pivot_df,
-                    labels=dict(x="Voting Fairness", y="Trump Approval"),
+                    labels=dict(x="Trump Approval", y="Voting Fairness"),
                     color_continuous_scale='RdBu_r',
                     text_auto=True)
 
     fig.update_layout(
-        title='Heatmap of Trump Approval vs. Voting Fairness',
+        title='Heatmap of Voting Fairness vs. Trump Approval',
         title_font_size=20,
         xaxis_title_font=dict(size=15),
         yaxis_title_font=dict(size=15),

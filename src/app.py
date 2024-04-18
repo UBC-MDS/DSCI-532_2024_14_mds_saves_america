@@ -39,7 +39,7 @@ Eager to apply data science skillsets and maximize organizational efficiency & e
 """
 
 
-pil_image = Image.open("../img/logo.png")
+pil_image = Image.open("../img/logo.png") # change it back to start with ../ before pushing
 
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
@@ -235,6 +235,11 @@ def main_page_layout():
                                        'textAlign': 'center', 'color': colors['red'], 'fontSize': '25px'}),
                         dbc.CardBody([
                             dcc.Graph(id='heatmap', figure=heat_map),
+                                      html.Div([
+                                        html.H6("Voting Fairness", style={'display': 'inline-block', 'margin-right': '5px', 'color':colors['light_blue']}), 
+                                        html.Abbr("\u2139", title="Voting Fairness refers to whether or not Americans think votes are counted fairly in American elections.", 
+                                                style={'text-decoration': 'none', 'cursor': 'help'})
+                                            ]),
                             dcc.Graph(id='donut-chart',
                                       figure=donut_chart_figure)
                         ])
@@ -242,7 +247,9 @@ def main_page_layout():
                     ], style={'backgroundColor': colors['light_grey'], 'borderRadius': '10px'})
                 ], md=6)
             ], justify='center', class_name='align-items-stretch')
-        ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'})
+        ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'}),
+        html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.", 
+           style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']})
     ])
 
 

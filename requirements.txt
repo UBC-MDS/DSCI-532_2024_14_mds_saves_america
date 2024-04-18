@@ -119,3 +119,4 @@ websocket-client==1.7.*
 Werkzeug==3.0.*
 wheel==0.43.*
 zipp==3.18.*
+pyarrow==15.0.*
