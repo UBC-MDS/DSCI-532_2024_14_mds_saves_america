@@ -70,17 +70,18 @@ def create_stacked_chart_education(df):
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(visible=False)
+    fig.update_yaxes(visible=True, tickformat=',.0%')
     fig.update_traces(selector=dict(type='bar'), 
                       showlegend=True,
                       legendgroup='political_party',
                       hovertemplate=None)
 
+
     fig.update_layout(
         title_text='Political Party by Education Level',
         title_font_size=20,
+        yaxis_title='',
         xaxis_title='',
-        yaxis_title_font=dict(size=15),
         legend_title_font_size=10,
         legend_font_size=10,
         xaxis_tickfont_size=10,
