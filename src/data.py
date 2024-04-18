@@ -1,7 +1,7 @@
 import pandas as pd
 import altair as alt
 
-df = pd.read_csv("../data/processed/data_cleaned.csv")
+df = pd.read_parquet("../data/processed/data_cleaned.parquet")
 
 race_ = df['race'].unique().tolist()
 ideology_ = df['ideology'].unique().tolist()
