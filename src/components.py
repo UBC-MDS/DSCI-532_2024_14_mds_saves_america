@@ -128,14 +128,15 @@ def create_donut_chart(df):
 
 def create_war_likelihood_chart(df):
     # Ensure data is in the correct format
-    if df['likelihood_of_war'].dtype == 'int':
+    if df['likelihood_of_war'].dtype != object:
         likelihood_mapping = {
-            2: 'Very Likely',
-            1: 'Somewhat Likely',
-            0: 'Not at all likely'
-        }
+        2: 'Very Likely',
+        1: 'Somewhat Likely',
+        0: 'Not at all likely'
+    }
         df['likelihood_of_war'] = df['likelihood_of_war'].map(
             likelihood_mapping)
+  
 
     # Aggregate the data to get the count of responses for each category
     likelihood_counts = df['likelihood_of_war'].value_counts().reset_index()

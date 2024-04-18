@@ -247,7 +247,9 @@ def main_page_layout():
                     ], style={'backgroundColor': colors['light_grey'], 'borderRadius': '10px'})
                 ], md=6)
             ], justify='center', class_name='align-items-stretch')
-        ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'})
+        ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'}),
+        html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.", 
+           style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']})
     ])
 
 
