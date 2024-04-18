@@ -31,7 +31,7 @@ def create_stacked_chart_race(df):
                  barmode='relative',
                  color_discrete_map=party_colors)
 
-    fig.update_yaxes(title='', tickformat='0.1%')
+    fig.update_yaxes(title='', tickformat='0.0%')
     fig.update_layout(
         title_text='Political Party by Race',
         title_font_size=20,
