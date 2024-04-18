@@ -176,14 +176,14 @@ def create_war_likelihood_chart(df):
 
 def create_heatmap(df):
     pivot_df = df.pivot_table(
-        index='trump_approval', columns='fairness_voting', aggfunc='size', fill_value=0)
+        index='fairness_voting', columns='fairness_voting', aggfunc='size', fill_value=0)
     fig = px.imshow(pivot_df,
-                    labels=dict(x="Voting Fairness", y="Trump Approval"),
+                    labels=dict(x="Trump Approval", y="Voting Fairness"),
                     color_continuous_scale='RdBu_r',
                     text_auto=True)
 
     fig.update_layout(
-        title='Heatmap of Trump Approval vs. Voting Fairness',
+        title='Heatmap of Voting Fairness vs. Trump Approval',
         title_font_size=20,
         xaxis_title_font=dict(size=15),
         yaxis_title_font=dict(size=15),

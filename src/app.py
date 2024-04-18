@@ -235,6 +235,11 @@ def main_page_layout():
                                        'textAlign': 'center', 'color': colors['red'], 'fontSize': '25px'}),
                         dbc.CardBody([
                             dcc.Graph(id='heatmap', figure=heat_map),
+                                      html.Div([
+                                        html.H6("Voting Fairness", style={'display': 'inline-block', 'margin-right': '5px', 'color':colors['light_blue']}), 
+                                        html.Abbr("\u2139", title="Voting Fairness refers to whether or not Americans think votes are counted fairly in American elections.", 
+                                                style={'text-decoration': 'none', 'cursor': 'help'})
+                                            ]),
                             dcc.Graph(id='donut-chart',
                                       figure=donut_chart_figure)
                         ])
