@@ -71,6 +71,10 @@ def create_stacked_chart_education(df):
                  color_discrete_map=party_colors)
 
     fig.update_yaxes(visible=False)
+    fig.update_traces(selector=dict(type='bar'), 
+                      showlegend=True,
+                      legendgroup='political_party',
+                      hovertemplate=None)
 
     fig.update_layout(
         title_text='Political Party by Education Level',
@@ -87,6 +91,9 @@ def create_stacked_chart_education(df):
         plot_bgcolor=colors['light_grey'],
         legend_title='Political Party'
     )
+
+    fig.update_layout(legend_itemclick=False, legend_itemdoubleclick=False)
+    
     return fig
 
 
