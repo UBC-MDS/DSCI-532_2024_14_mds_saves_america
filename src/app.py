@@ -39,7 +39,7 @@ Eager to apply data science skillsets and maximize organizational efficiency & e
 """
 
 
-pil_image = Image.open("../img/logo.png")
+pil_image = Image.open("../img/logo.png") # change it back to start with ../ before pushing
 
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)

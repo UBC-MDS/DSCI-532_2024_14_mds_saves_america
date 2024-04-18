@@ -9,6 +9,7 @@ dependencies:
   - libffi=3.4.2
   - libsqlite=3.45.2
   - libzlib=1.2.13
+  - pyarrow=5.0.0
   #- ncurses=6.4.20240210
   - openssl=3.2.1
   - pip=24.0
