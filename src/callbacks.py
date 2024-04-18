@@ -1,12 +1,12 @@
 from dash import Dash, html, dcc, Input, Output
-from components import (
+from src.components import (
     create_donut_chart,
     create_stacked_chart_race,
     create_stacked_chart_education,
     create_heatmap,
     create_war_likelihood_chart,
 )
-from data import df, min_age, max_age
+from src.data import df, min_age, max_age
 
 
 def update_donut_chart(age_range, education, ideology, race):
