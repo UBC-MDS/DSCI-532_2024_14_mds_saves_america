@@ -133,6 +133,7 @@ navbar.brand_style = navbar_brand_style
 
 def main_page_layout():
     return html.Div([
+        html.Link(rel='icon', href='./assets/favicon.ico'),
         dbc.Container([
             dbc.Row([
                 dbc.Col([
