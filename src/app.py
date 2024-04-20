@@ -250,7 +250,13 @@ def main_page_layout():
             ], justify='center', class_name='align-items-stretch')
         ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'}),
         html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.", 
-           style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']})
+           style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']}),
+            html.Div(id="message-div",
+                 children=[
+                     dbc.Alert("Filters do not have selections made.", color="warning")
+                 ],
+                 style={"display": "none"}
+                 )
     ])
 
 
@@ -384,6 +390,19 @@ app.callback(
     Output('age-slider', 'marks'),
     [Input('age-slider', 'value')]
 )(update_slider_marks)
+
+@app.callback(
+    Output("message-div", "style"),
+    [Input('age-slider', 'value'),
+     Input('higher-education-dropdown', 'value'),
+     Input('ideology-dropdown', 'value'),
+     Input('racial-group-dropdown', 'value')]
+)
+def update_visibility(age_value, education_value, ideology_value, race_value):
+    if len(age_value) == 0 or len(education_value) == 0 or len(ideology_value) == 0 or len(race_value) == 0:
+        return {"display": "block"}
+    else:
+        return {"display": "none"}
 
 
 if __name__ == '__main__':
