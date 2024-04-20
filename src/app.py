@@ -46,8 +46,8 @@ pil_image = Image.open("./img/logo.png") # change it back to start with ../ befo
 
 arturo_image = Image.open("./img/arturo.png")
 salva_image = Image.open("./img/salva.png")
-sampson_image = Image.open("./img/logo.png")
-sophia_image = Image.open("./img/logo.png")
+sampson_image = Image.open("./img/sampson.png")
+sophia_image = Image.open("./img/sophia.png")
 
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
@@ -282,7 +282,7 @@ member_card_salva = dbc.Card([
 ], style={'margin': '10px'})
 
 member_card_sampson = dbc.Card([
-    dbc.CardImg(src="member_image.jpg", top=True, style={
+    dbc.CardImg(src=sampson_image, top=True, style={
                 'height': '200px', 'objectFit': 'cover'}),
     dbc.CardBody([
         html.H5("Sampson Yu", className="card-title"),
@@ -291,7 +291,7 @@ member_card_sampson = dbc.Card([
 ], style={'margin': '10px'})
 
 member_card_sophia = dbc.Card([
-    dbc.CardImg(src="member_image.jpg", top=True, style={
+    dbc.CardImg(src=sophia_image, top=True, style={
                 'height': '200px', 'objectFit': 'cover'}),
     dbc.CardBody([
         html.H5("Sophia Zhao", className="card-title"),
