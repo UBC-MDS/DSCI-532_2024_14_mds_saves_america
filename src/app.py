@@ -1,3 +1,4 @@
+from turtle import color
 from PIL import Image
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
@@ -22,7 +23,9 @@ app = Dash(__name__,
 server = app.server
 
 
-arturo_rey_info = """Data Scientist with 3 years of experience."""
+arturo_rey_info = """Data Scientist with extensive experience in data modeling using machine learning, 
+business intelligence, and managing the overall data flow, data processing and modeling process. 
+Proven ability to develop business solutions by analyzing and interpreting data to create value"""
 
 salva_umar_info = """Background in Computer Science. 
 Experienced Data Analyst with a focus on traffic analysis and prediction models. 
@@ -39,7 +42,12 @@ Eager to apply data science skillsets and maximize organizational efficiency & e
 """
 
 
-pil_image = Image.open("../img/logo.png") # change it back to start with ../ before pushing
+pil_image = Image.open("./img/logo.png") # change it back to start with ../ before pushing
+
+arturo_image = Image.open("./img/arturo.png")
+salva_image = Image.open("./img/salva.png")
+sampson_image = Image.open("./img/logo.png")
+sophia_image = Image.open("./img/logo.png")
 
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
@@ -256,7 +264,7 @@ def main_page_layout():
 
 # ABOUT US MEMBERS
 member_card_arturo = dbc.Card([
-    dbc.CardImg(src="member_image.jpg", top=True, style={
+    dbc.CardImg(src=arturo_image, top=True, style={
                 'height': '200px', 'objectFit': 'cover'}),
     dbc.CardBody([
         html.H5("Arturo Rey Haggar", className="card-title"),
@@ -265,7 +273,7 @@ member_card_arturo = dbc.Card([
 ], style={'margin': '10px'})
 
 member_card_salva = dbc.Card([
-    dbc.CardImg(src="member_image.jpg", top=True, style={
+    dbc.CardImg(src=salva_image, top=True, style={
                 'height': '200px', 'objectFit': 'cover'}),
     dbc.CardBody([
         html.H5("Salva Umar", className="card-title"),
@@ -292,6 +300,9 @@ member_card_sophia = dbc.Card([
 ], style={'margin': '10px'})
 
 # About Us page layout with grid
+
+card_style = {'height': '300px', 'marginBottom': '20px'}
+
 about_us_layout = html.Div([
     dbc.NavbarSimple(
         children=[
@@ -311,7 +322,7 @@ about_us_layout = html.Div([
         style=navbar_brand_style
     ),
     dbc.Container([
-        html.H1("About Us", style={'marginTop': '20px'}),
+        html.H1("About Us", style={'marginTop': '20px', 'color':colors['dark_blue']}),
         dbc.Row([
             dbc.Col(member_card_arturo, width=6),
             dbc.Col(member_card_salva, width=6)
@@ -320,9 +331,27 @@ about_us_layout = html.Div([
             dbc.Col(member_card_sampson, width=6),
             dbc.Col(member_card_sophia, width=6)
         ])
-    ], className="mt-4")
+    ], className="mt-4",style={'backgroundColor': 'lightgrey', 'maxHeight': 'calc(100vh - 200px)'})
+],style={'backgroundColor': 'lightgrey','margin-bot':'100px'})
+
+
+footer = html.Footer([
+    dbc.Container([
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Div([
+            "To visit our repo, click here: ",
+            html.A("GitHub", href="https://github.com/UBC-MDS/DSCI-532_2024_14_mds_saves_america", target="_blank")
+        ], style={'fontSize': '12px', 'textAlign': 'center', 'padding': '20px'})
+    ], fluid=True, style={'backgroundColor': 'lightgrey'})
 ])
 
+
+about_us_layout = html.Div([about_us_layout, footer])
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
