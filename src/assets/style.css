@@ -33,3 +33,9 @@
 .column-height {
     height: 800px !important;
 }
+
+body {
+    background-color: lightgrey;
+    margin: 0;
+    padding: 0;
+}
