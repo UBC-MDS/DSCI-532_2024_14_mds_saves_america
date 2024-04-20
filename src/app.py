@@ -14,13 +14,10 @@ from dash.dependencies import Input, Output
 
 from src.data import df, df_pct, df_pct_education, min_age, max_age, race_, ideology_, higher_education_
 from src.components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, create_heatmap
+from flask_caching import Cache
+from src.cache_config import app
 
-
-# Initialize the app
-app = Dash(__name__,
-           external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
 server = app.server
-
 
 arturo_rey_info = """Data Scientist with 3 years of experience."""
 
@@ -39,7 +36,8 @@ Eager to apply data science skillsets and maximize organizational efficiency & e
 """
 
 
-pil_image = Image.open("../img/logo.png") # change it back to start with ../ before pushing
+# change it back to start with ../ before pushing
+pil_image = Image.open("../img/logo.png")
 
 # Use the function to create the figure
 donut_chart_figure = create_donut_chart(df)
@@ -236,11 +234,12 @@ def main_page_layout():
                                        'textAlign': 'center', 'color': colors['red'], 'fontSize': '25px'}),
                         dbc.CardBody([
                             dcc.Graph(id='heatmap', figure=heat_map),
-                                      html.Div([
-                                        html.H6("Voting Fairness", style={'display': 'inline-block', 'margin-right': '5px', 'color':colors['light_blue']}), 
-                                        html.Abbr("\u2139", title="Voting Fairness refers to whether or not Americans think votes are counted fairly in American elections.", 
-                                                style={'text-decoration': 'none', 'cursor': 'help'})
-                                            ]),
+                            html.Div([
+                                html.H6("Voting Fairness", style={
+                                        'display': 'inline-block', 'margin-right': '5px', 'color': colors['light_blue']}),
+                                html.Abbr("\u2139", title="Voting Fairness refers to whether or not Americans think votes are counted fairly in American elections.",
+                                          style={'text-decoration': 'none', 'cursor': 'help'})
+                            ]),
                             dcc.Graph(id='donut-chart',
                                       figure=donut_chart_figure)
                         ])
@@ -249,8 +248,8 @@ def main_page_layout():
                 ], md=6)
             ], justify='center', class_name='align-items-stretch')
         ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'}),
-        html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.", 
-           style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']})
+        html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.",
+               style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']})
     ])
 
 
