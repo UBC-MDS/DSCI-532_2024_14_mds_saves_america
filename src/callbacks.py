@@ -7,8 +7,10 @@ from src.components import (
     create_war_likelihood_chart,
 )
 from src.data import df, min_age, max_age
+from src.cache_config import cache, timeout
 
 
+@cache.memoize(timeout=timeout)
 def update_donut_chart(age_range, education, ideology, race):
     filtered_df = df[(df["age"] >= age_range[0]) & (df["age"] <= age_range[1])]
     filtered_df = filtered_df[filtered_df["higher_education"].isin(education)]
@@ -18,6 +20,7 @@ def update_donut_chart(age_range, education, ideology, race):
     return create_donut_chart(filtered_df)
 
 
+@cache.memoize(timeout=timeout)
 def update_stacked_chart_race(age_range, education, ideology, race):
     filtered_df = df[(df["age"] >= age_range[0]) & (df["age"] <= age_range[1])]
     filtered_df = filtered_df[filtered_df["higher_education"].isin(education)]
@@ -36,6 +39,7 @@ def update_stacked_chart_race(age_range, education, ideology, race):
     return create_stacked_chart_race(df_pct)
 
 
+@cache.memoize(timeout=timeout)
 def update_stacked_chart_education(age_range, education, ideology, race):
     filtered_df = df[(df["age"] >= age_range[0]) & (df["age"] <= age_range[1])]
     filtered_df = filtered_df[filtered_df["higher_education"].isin(education)]
@@ -54,6 +58,7 @@ def update_stacked_chart_education(age_range, education, ideology, race):
     return create_stacked_chart_education(df_pct)
 
 
+@cache.memoize(timeout=timeout)
 def update_heatmap_data(age_range, education, ideology, race):
     filtered_df = df[(df["age"] >= age_range[0]) & (df["age"] <= age_range[1])]
     filtered_df = filtered_df[filtered_df["higher_education"].isin(education)]
@@ -64,6 +69,7 @@ def update_heatmap_data(age_range, education, ideology, race):
     return create_heatmap(df_subset)
 
 
+@cache.memoize(timeout=timeout)
 def update_war_likelihood_chart(age_range, education, ideology, race):
     filtered_df = df[(df['age'] >= age_range[0]) & (df['age'] <= age_range[1])]
     filtered_df = filtered_df[filtered_df['higher_education'].isin(education)]
@@ -72,6 +78,7 @@ def update_war_likelihood_chart(age_range, education, ideology, race):
     return create_war_likelihood_chart(filtered_df)
 
 
+@cache.memoize(timeout=timeout)
 def update_slider_marks(value):
     default_label_positions = range(min_age, max_age + 1, 10)
     new_marks = {}

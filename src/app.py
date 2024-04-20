@@ -15,17 +15,16 @@ from dash.dependencies import Input, Output
 
 from src.data import df, df_pct, df_pct_education, min_age, max_age, race_, ideology_, higher_education_
 from src.components import create_donut_chart, create_stacked_chart_race, create_stacked_chart_education, create_war_likelihood_chart, create_heatmap
+from flask_caching import Cache
+from src.cache_config import app
 
-
-# Initialize the app
-app = Dash(__name__,
-           external_stylesheets=['https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'])
 server = app.server
 
 
 arturo_rey_info = """Data Scientist with extensive experience in data modeling using machine learning, 
 business intelligence, and managing the overall data flow, data processing and modeling process. 
 Proven ability to develop business solutions by analyzing and interpreting data to create value"""
+
 
 salva_umar_info = """Background in Computer Science. 
 Experienced Data Analyst with a focus on traffic analysis and prediction models. 
@@ -42,7 +41,8 @@ Eager to apply data science skillsets and maximize organizational efficiency & e
 """
 
 
-pil_image = Image.open("../img/logo.png") # change it back to start with ../ before pushing
+# change it back to start with ../ before pushing
+pil_image = Image.open("../img/logo.png")
 
 arturo_image = Image.open("../img/arturo.png")
 salva_image = Image.open("../img/salva.jpg")
@@ -244,11 +244,12 @@ def main_page_layout():
                                        'textAlign': 'center', 'color': colors['red'], 'fontSize': '25px'}),
                         dbc.CardBody([
                             dcc.Graph(id='heatmap', figure=heat_map),
-                                      html.Div([
-                                        html.H6("Voting Fairness", style={'display': 'inline-block', 'margin-right': '5px', 'color':colors['light_blue']}), 
-                                        html.Abbr("\u2139", title="Voting Fairness refers to whether or not Americans think votes are counted fairly in American elections.", 
-                                                style={'text-decoration': 'none', 'cursor': 'help'})
-                                            ]),
+                            html.Div([
+                                html.H6("Voting Fairness", style={
+                                        'display': 'inline-block', 'margin-right': '5px', 'color': colors['light_blue']}),
+                                html.Abbr("\u2139", title="Voting Fairness refers to whether or not Americans think votes are counted fairly in American elections.",
+                                          style={'text-decoration': 'none', 'cursor': 'help'})
+                            ]),
                             dcc.Graph(id='donut-chart',
                                       figure=donut_chart_figure)
                         ])
@@ -257,11 +258,13 @@ def main_page_layout():
                 ], md=6)
             ], justify='center', class_name='align-items-stretch')
         ], fluid=True, style={'backgroundColor': colors['light_grey'], 'padding': '20px'}),
-        html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.", 
-           style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']}),
-            html.Div(id="message-div",
+
+        html.P("Please note that the color schemes used across different visual components in this application are independent and may vary.",
+               style={'font-size': '12px', 'color': colors['light_blue'], 'backgroundColor': colors['light_grey']}),
+        html.Div(id="message-div",
                  children=[
-                     dbc.Alert("Filters do not have selections made.", color="warning")
+                     dbc.Alert("Filters do not have selections made.",
+                               color="warning")
                  ],
                  style={"display": "none"}
                  )
@@ -328,7 +331,8 @@ about_us_layout = html.Div([
         style=navbar_brand_style
     ),
     dbc.Container([
-        html.H1("About Us", style={'marginTop': '20px', 'color':colors['dark_blue']}),
+        html.H1("About Us", style={
+                'marginTop': '20px', 'color': colors['dark_blue']}),
         dbc.Row([
             dbc.Col(member_card_arturo, width=6),
             dbc.Col(member_card_salva, width=6)
@@ -337,8 +341,8 @@ about_us_layout = html.Div([
             dbc.Col(member_card_sampson, width=6),
             dbc.Col(member_card_sophia, width=6)
         ])
-    ], className="mt-4",style={'backgroundColor': 'lightgrey', 'maxHeight': 'calc(100vh - 200px)'})
-],style={'backgroundColor': 'lightgrey','margin-bot':'100px'})
+    ], className="mt-4", style={'backgroundColor': 'lightgrey', 'maxHeight': 'calc(100vh - 200px)'})
+], style={'backgroundColor': 'lightgrey', 'margin-bot': '100px'})
 
 
 footer = html.Footer([
@@ -351,7 +355,8 @@ footer = html.Footer([
         html.Br(),
         html.Div([
             "To visit our repo, click here: ",
-            html.A("GitHub", href="https://github.com/UBC-MDS/DSCI-532_2024_14_mds_saves_america", target="_blank")
+            html.A(
+                "GitHub", href="https://github.com/UBC-MDS/DSCI-532_2024_14_mds_saves_america", target="_blank")
         ], style={'fontSize': '12px', 'textAlign': 'center', 'padding': '20px'})
     ], fluid=True, style={'backgroundColor': 'lightgrey'})
 ])
@@ -419,6 +424,7 @@ app.callback(
     Output('age-slider', 'marks'),
     [Input('age-slider', 'value')]
 )(update_slider_marks)
+
 
 @app.callback(
     Output("message-div", "style"),

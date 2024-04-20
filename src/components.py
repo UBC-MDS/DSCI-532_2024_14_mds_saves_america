@@ -71,11 +71,10 @@ def create_stacked_chart_education(df):
                  color_discrete_map=party_colors)
 
     fig.update_yaxes(visible=True, tickformat=',.0%')
-    fig.update_traces(selector=dict(type='bar'), 
+    fig.update_traces(selector=dict(type='bar'),
                       showlegend=True,
                       legendgroup='political_party',
                       hovertemplate=None)
-
 
     fig.update_layout(
         title_text='Political Party by Education Level',
@@ -94,7 +93,7 @@ def create_stacked_chart_education(df):
     )
 
     fig.update_layout(legend_itemclick=False, legend_itemdoubleclick=False)
-    
+
     return fig
 
 
@@ -138,13 +137,12 @@ def create_war_likelihood_chart(df):
     # Ensure data is in the correct format
     if df['likelihood_of_war'].dtype != object:
         likelihood_mapping = {
-        2: 'Very Likely',
-        1: 'Somewhat Likely',
-        0: 'Not at all likely'
-    }
+            2: 'Very Likely',
+            1: 'Somewhat Likely',
+            0: 'Not at all likely'
+        }
         df['likelihood_of_war'] = df['likelihood_of_war'].map(
             likelihood_mapping)
-  
 
     # Aggregate the data to get the count of responses for each category
     likelihood_counts = df['likelihood_of_war'].value_counts().reset_index()
